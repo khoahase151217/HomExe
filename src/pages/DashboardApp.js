@@ -28,7 +28,7 @@ const POST_TITLES = [
   '1 Đặng Nhật Kha',
   '2 Đặng Nhật Kha',
   '3 Đặng Nhật Kha thứ tư',
-  // 'Đặng Nhật Kha',
+  'Đặng Nhật Kha',
   // 'Đặng Nhật Kha',
 ];
 
@@ -46,6 +46,49 @@ const posts = [...Array(1)].map((_, index) => ({
     avatarUrl: `/static/mock-images/avatars/avatar_${index + 1}.jpg`,
   },
 }));
+const lessons = [
+  'Tập cơ bụng đứng',
+  'Tập bụng đứng không cần nằm',
+  'Cardio mông to đùi thon',
+  'Săn chắc cơ ngực tại nhà',
+  '5 bài tập bụng eo thon 6 múi',
+  'Tập cơ bụng đứng',
+  'Tập bụng đứng không cần nằm',
+  'Cardio mông to đùi thon',
+  'Săn chắc cơ ngực tại nhà',
+  '5 bài tập bụng eo thon 6 múi',
+  'Tập cơ bụng đứng',
+  'Tập bụng đứng không cần nằm',
+  'Cardio mông to đùi thon',
+  'Săn chắc cơ ngực tại nhà',
+  '5 bài tập bụng eo thon 6 múi',
+  'Tập cơ bụng đứng',
+  'Tập bụng đứng không cần nằm',
+  'Cardio mông to đùi thon',
+  'Săn chắc cơ ngực tại nhà',
+  '5 bài tập bụng eo thon 6 múi',
+  'Tập cơ bụng đứng',
+  'Tập bụng đứng không cần nằm',
+  'Cardio mông to đùi thon',
+  'Săn chắc cơ ngực tại nhà',
+  '5 bài tập bụng eo thon 6 múi',
+  'Tập cơ bụng đứng',
+  'Tập bụng đứng không cần nằm',
+  'Cardio mông to đùi thon',
+  'Săn chắc cơ ngực tại nhà',
+  '5 bài tập bụng eo thon 6 múi',
+  'Tập cơ bụng đứng',
+  'Tập bụng đứng không cần nằm',
+  'Cardio mông to đùi thon',
+  'Săn chắc cơ ngực tại nhà',
+  '5 bài tập bụng eo thon 6 múi',
+  'Tập cơ bụng đứng',
+  'Tập bụng đứng không cần nằm',
+  'Cardio mông to đùi thon',
+  'Săn chắc cơ ngực tại nhà',
+  '5 bài tập bụng eo thon 6 múi',
+
+];
 
 export default function DashboardApp() {
   const theme = useTheme();
@@ -204,9 +247,10 @@ export default function DashboardApp() {
               }))}
             />
           </Grid> */}
-          <Calendar />
+          <Calendar  />
 
           <Grid item xs={12} md={12} lg={12}>
+
             <AppOrderTimeline
               title="Agenda"
               list={[...Array(10)].map((_, index) => ({
