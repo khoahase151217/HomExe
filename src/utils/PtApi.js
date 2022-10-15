@@ -6,8 +6,8 @@ const PtApi = {
     return get(url);
   },
   getPtById: (id = '') => {
-    const url = `/api/pt/user/?userId=${id}`;
-    return get(url);
+    const url = `/api/pt/user`;
+    return get(url, {userId: id});
   },
   
 };

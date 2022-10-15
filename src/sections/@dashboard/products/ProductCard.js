@@ -78,7 +78,7 @@ ShopProductCard.propTypes = {
 export default function ShopProductCard({ product }) {
   // const { name, cover, price, colors, status, priceSale} = product;
   const { fullName, cover, categoryName , age, rating } = product;
-
+  console.log(product);
   return (
     <Card>
       <Box sx={{ pt: '100%', position: 'relative' }}>
@@ -103,7 +103,7 @@ export default function ShopProductCard({ product }) {
       <Stack spacing={1} sx={{ p: 3 }}>
         <Link to="#" color="inherit" underline="hover" component={RouterLink}>
           <Typography variant="h6" noWrap>
-            {fullName ? null : PRODUCT_NAME[Math.floor(Math.random() * 20) + 1]}
+            {fullName || PRODUCT_NAME[Math.floor(Math.random() * 20)  + 1]}
           </Typography>
         </Link>
         {/* <Link to="#" color="inherit" underline="hover" component={RouterLink}> */}
@@ -111,7 +111,7 @@ export default function ShopProductCard({ product }) {
           <Typography variant="body2" noWrap sx={{
                 color: 'text.disabled'
               }}>
-            {age ? null  : Math.floor(Math.random() * (40-20)) + 20}
+            {age || Math.floor(Math.random() * (40-20)) + 20}
           </Typography>
         {/* </Link> */}
 
@@ -129,7 +129,7 @@ export default function ShopProductCard({ product }) {
               {/* {priceSale && fCurrency(priceSale)} */}
             </Typography>
             {/* &nbsp; */}
-            {categoryName ? null : PRODUCT_NAME[Math.floor(Math.random() * 20) + 1]}
+            {categoryName || PRODUCT_CATEGORY[Math.floor(Math.random() * 20) + 1]}
           </Typography>
           
         </Stack>
