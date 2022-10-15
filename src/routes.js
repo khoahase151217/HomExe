@@ -6,6 +6,8 @@ import LogoOnlyLayout from './layouts/LogoOnlyLayout';
 import Blog from './pages/Blog';
 import User from './pages/User';
 import Login from './pages/Login';
+import PersonalPage from './pages/PersonalPage';
+import Calendar from './pages/Calendar';
 import NotFound from './pages/Page404';
 import Register from './pages/Register';
 import Products from './pages/Products';
@@ -28,6 +30,10 @@ export default function Router() {
     {
       path: 'login',
       element: <Login />,
+    },
+    {
+      path: 'personalPage',
+      element: <PersonalPage />,
     },
     {
       path: 'register',
