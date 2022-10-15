@@ -1,8 +1,9 @@
 import { faker } from '@faker-js/faker';
 // @mui
 import { useTheme } from '@mui/material/styles';
-import { Grid, Container, Typography } from '@mui/material';
+import { Grid, Container, Typography, Collapse, Card, Stack } from '@mui/material';
 // components
+
 import Page from '../components/Page';
 import Iconify from '../components/Iconify';
 // sections
@@ -16,9 +17,78 @@ import {
   AppWidgetSummary,
   AppCurrentSubject,
   AppConversionRates,
+  PTCard,
+  News,
 } from '../sections/@dashboard/app';
+import Calendar from './Calendar'
 
 // ----------------------------------------------------------------------
+
+const POST_TITLES = [
+  '1 Đặng Nhật Kha',
+  '2 Đặng Nhật Kha',
+  '3 Đặng Nhật Kha thứ tư',
+  'Đặng Nhật Kha',
+  // 'Đặng Nhật Kha',
+];
+
+const posts = [...Array(1)].map((_, index) => ({
+  id: faker.datatype.uuid(),
+  cover: `/static/mock-images/covers/cover_${index + 1}.jpg`,
+  title: POST_TITLES[index],
+  createdAt: faker.date.past(),
+  view: faker.datatype.number(),
+  comment: faker.datatype.number(),
+  share: faker.datatype.number(),
+  favorite: faker.datatype.number(),
+  author: {
+    name: faker.name.findName(),
+    avatarUrl: `/static/mock-images/avatars/avatar_${index + 1}.jpg`,
+  },
+}));
+const lessons = [
+  'Tập cơ bụng đứng',
+  'Tập bụng đứng không cần nằm',
+  'Cardio mông to đùi thon',
+  'Săn chắc cơ ngực tại nhà',
+  '5 bài tập bụng eo thon 6 múi',
+  'Tập cơ bụng đứng',
+  'Tập bụng đứng không cần nằm',
+  'Cardio mông to đùi thon',
+  'Săn chắc cơ ngực tại nhà',
+  '5 bài tập bụng eo thon 6 múi',
+  'Tập cơ bụng đứng',
+  'Tập bụng đứng không cần nằm',
+  'Cardio mông to đùi thon',
+  'Săn chắc cơ ngực tại nhà',
+  '5 bài tập bụng eo thon 6 múi',
+  'Tập cơ bụng đứng',
+  'Tập bụng đứng không cần nằm',
+  'Cardio mông to đùi thon',
+  'Săn chắc cơ ngực tại nhà',
+  '5 bài tập bụng eo thon 6 múi',
+  'Tập cơ bụng đứng',
+  'Tập bụng đứng không cần nằm',
+  'Cardio mông to đùi thon',
+  'Săn chắc cơ ngực tại nhà',
+  '5 bài tập bụng eo thon 6 múi',
+  'Tập cơ bụng đứng',
+  'Tập bụng đứng không cần nằm',
+  'Cardio mông to đùi thon',
+  'Săn chắc cơ ngực tại nhà',
+  '5 bài tập bụng eo thon 6 múi',
+  'Tập cơ bụng đứng',
+  'Tập bụng đứng không cần nằm',
+  'Cardio mông to đùi thon',
+  'Săn chắc cơ ngực tại nhà',
+  '5 bài tập bụng eo thon 6 múi',
+  'Tập cơ bụng đứng',
+  'Tập bụng đứng không cần nằm',
+  'Cardio mông to đùi thon',
+  'Săn chắc cơ ngực tại nhà',
+  '5 bài tập bụng eo thon 6 múi',
+
+];
 
 export default function DashboardApp() {
   const theme = useTheme();
@@ -27,27 +97,55 @@ export default function DashboardApp() {
     <Page title="Dashboard">
       <Container maxWidth="xl">
         <Typography variant="h4" sx={{ mb: 5 }}>
-          Hi, Welcome back
+          Hi Kiệt, Welcome back
         </Typography>
 
-        <Grid container spacing={3}>
-          <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary title="Weekly Sales" total={714000} icon={'ant-design:android-filled'} />
-          </Grid>
+        <Grid container justifyContent={'space-between'} spacing={3}>
+          {/* <Grid item xs={12} sm={6} md={4}>
+            <AppWidgetSummary title="Slimfit | Yoga" total={'Đặng Nhật Kha'} icon={'ant-design:android-filled'} />
+          </Grid> */}
+          {/* Thử xài Blog CardContent */}
+          {/* <Stack > */}
+          {/* <Grid container xs={12} sm={6} md={3}> */}
+          {/* <Grid item xs={12} sm={6} md={3} >
+                <Card sx={{ position: 'relative' }}> */}
 
-          <Grid item xs={12} sm={6} md={3}>
+
+          {posts.map((post, index) => (
+            <PTCard key={post.id} post={post} index={index} />
+          ))}
+
+          {posts.map((post, index) => (
+            <News key={post.id} post={post} index={index} />
+          ))}
+          {/* </Card>
+              </Grid> */}
+          {/* </Grid> */}
+
+
+
+          {/* <Grid container spacing={3}>
+              {posts.map((post, index) => (
+                <PTCard key={post.id} post={post} index={index} />
+              ))}
+            </Grid> */}
+          {/* </Stack> */}
+
+
+          {/* <PTCard key={1} post={[{}]} index={1} /> */}
+          {/* <Grid item xs={12} sm={6} md={3}>
             <AppWidgetSummary title="New Users" total={1352831} color="info" icon={'ant-design:apple-filled'} />
-          </Grid>
+          </Grid> */}
 
-          <Grid item xs={12} sm={6} md={3}>
+          {/* <Grid item xs={12} sm={6} md={3}>
             <AppWidgetSummary title="Item Orders" total={1723315} color="warning" icon={'ant-design:windows-filled'} />
-          </Grid>
+          </Grid> */}
 
-          <Grid item xs={12} sm={6} md={3}>
+          {/* <Grid item xs={12} sm={6} md={3}>
             <AppWidgetSummary title="Bug Reports" total={234} color="error" icon={'ant-design:bug-filled'} />
-          </Grid>
+          </Grid> */}
 
-          <Grid item xs={12} md={6} lg={8}>
+          {/* <Grid item xs={12} md={6} lg={8}>
             <AppWebsiteVisits
               title="Website Visits"
               subheader="(+43%) than last year"
@@ -85,9 +183,9 @@ export default function DashboardApp() {
                 },
               ]}
             />
-          </Grid>
+          </Grid> */}
 
-          <Grid item xs={12} md={6} lg={4}>
+          {/* <Grid item xs={12} md={6} lg={4}>
             <AppCurrentVisits
               title="Current Visits"
               chartData={[
@@ -103,9 +201,9 @@ export default function DashboardApp() {
                 theme.palette.chart.yellow[0],
               ]}
             />
-          </Grid>
+          </Grid> */}
 
-          <Grid item xs={12} md={6} lg={8}>
+          {/* <Grid item xs={12} md={6} lg={8}>
             <AppConversionRates
               title="Conversion Rates"
               subheader="(+43%) than last year"
@@ -122,9 +220,9 @@ export default function DashboardApp() {
                 { label: 'United Kingdom', value: 1380 },
               ]}
             />
-          </Grid>
+          </Grid> */}
 
-          <Grid item xs={12} md={6} lg={4}>
+          {/* <Grid item xs={12} md={6} lg={4}>
             <AppCurrentSubject
               title="Current Subject"
               chartLabels={['English', 'History', 'Physics', 'Geography', 'Chinese', 'Math']}
@@ -135,9 +233,9 @@ export default function DashboardApp() {
               ]}
               chartColors={[...Array(6)].map(() => theme.palette.text.secondary)}
             />
-          </Grid>
+          </Grid> */}
 
-          <Grid item xs={12} md={6} lg={8}>
+          {/* <Grid item xs={12} md={6} lg={8}>
             <AppNewsUpdate
               title="News Update"
               list={[...Array(5)].map((_, index) => ({
@@ -148,19 +246,57 @@ export default function DashboardApp() {
                 postedAt: faker.date.recent(),
               }))}
             />
-          </Grid>
+          </Grid> */}
+          <Calendar  />
 
-          <Grid item xs={12} md={6} lg={4}>
+          <Grid item xs={12} md={12} lg={12}>
+
             <AppOrderTimeline
-              title="Order Timeline"
-              list={[...Array(5)].map((_, index) => ({
+              title="Agenda"
+              list={[...Array(10)].map((_, index) => ({
                 id: faker.datatype.uuid(),
                 title: [
-                  '1983, orders, $4220',
-                  '12 Invoices have been paid',
-                  'Order #37745 from September',
-                  'New order placed #XF-2356',
-                  'New order placed #XF-2346',
+                  'Tập cơ bụng đứng',
+                  'Tập bụng đứng không cần nằm',
+                  'Cardio mông to đùi thon',
+                  'Săn chắc cơ ngực tại nhà',
+                  '5 bài tập bụng eo thon 6 múi',
+                  'Tập cơ bụng đứng',
+                  'Tập bụng đứng không cần nằm',
+                  'Cardio mông to đùi thon',
+                  'Săn chắc cơ ngực tại nhà',
+                  '5 bài tập bụng eo thon 6 múi',
+                  'Tập cơ bụng đứng',
+                  'Tập bụng đứng không cần nằm',
+                  'Cardio mông to đùi thon',
+                  'Săn chắc cơ ngực tại nhà',
+                  '5 bài tập bụng eo thon 6 múi',
+                  'Tập cơ bụng đứng',
+                  'Tập bụng đứng không cần nằm',
+                  'Cardio mông to đùi thon',
+                  'Săn chắc cơ ngực tại nhà',
+                  '5 bài tập bụng eo thon 6 múi',
+                  'Tập cơ bụng đứng',
+                  'Tập bụng đứng không cần nằm',
+                  'Cardio mông to đùi thon',
+                  'Săn chắc cơ ngực tại nhà',
+                  '5 bài tập bụng eo thon 6 múi',
+                  'Tập cơ bụng đứng',
+                  'Tập bụng đứng không cần nằm',
+                  'Cardio mông to đùi thon',
+                  'Săn chắc cơ ngực tại nhà',
+                  '5 bài tập bụng eo thon 6 múi',
+                  'Tập cơ bụng đứng',
+                  'Tập bụng đứng không cần nằm',
+                  'Cardio mông to đùi thon',
+                  'Săn chắc cơ ngực tại nhà',
+                  '5 bài tập bụng eo thon 6 múi',
+                  'Tập cơ bụng đứng',
+                  'Tập bụng đứng không cần nằm',
+                  'Cardio mông to đùi thon',
+                  'Săn chắc cơ ngực tại nhà',
+                  '5 bài tập bụng eo thon 6 múi',
+
                 ][index],
                 type: `order${index + 1}`,
                 time: faker.date.past(),
@@ -168,7 +304,7 @@ export default function DashboardApp() {
             />
           </Grid>
 
-          <Grid item xs={12} md={6} lg={4}>
+          {/* <Grid item xs={12} md={6} lg={4}>
             <AppTrafficBySite
               title="Traffic by Site"
               list={[
@@ -194,9 +330,9 @@ export default function DashboardApp() {
                 },
               ]}
             />
-          </Grid>
+          </Grid> */}
 
-          <Grid item xs={12} md={6} lg={8}>
+          {/* <Grid item xs={12} md={6} lg={8}>
             <AppTasks
               title="Tasks"
               list={[
@@ -207,9 +343,9 @@ export default function DashboardApp() {
                 { id: '5', label: 'Sprint Showcase' },
               ]}
             />
-          </Grid>
+          </Grid> */}
         </Grid>
-      </Container>
-    </Page>
+      </Container >
+    </Page >
   );
 }
