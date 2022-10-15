@@ -6,20 +6,22 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import React, { useEffect, useReducer, useState } from 'react';
+import { useSelector } from 'react-redux';
 import userApi from 'src/utils/userApi';
 
 const moment = require('moment');
 
 export default function PaymentForm() {
-    const [userInfo, setUserInfo] = useState([]);
-    useEffect(() => {
-        const initData = async () => {
-            const tmp = await userApi.getUserId(2).then((res) => res.data);
-            console.log(tmp.data);
-            setUserInfo(tmp.data);
-        };
-        initData();
-    }, []);
+    // const [userInfo, setUserInfo] = useState([]);
+    // useEffect(() => {
+    //     const initData = async () => {
+    //         const tmp = await userApi.getUserId(2).then((res) => res.data);
+    //         console.log(tmp.data);
+    //         setUserInfo(tmp.data);
+    //     };
+    //     initData();
+    // }, []);
+    const userInfo = useSelector((state) => state?.auth?.userInfo);
 
     const startDate = new Date();
     const [month, setMonth] = React.useState(1);

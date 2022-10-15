@@ -11,6 +11,7 @@ import useResponsive from '../hooks/useResponsive';
 // components
 import Logo from '../components/Logo';
 import Page from '../components/Page';
+import { useSelector } from 'react-redux';
 // sections
 
 // ----------------------------------------------------------------------
@@ -59,6 +60,7 @@ const ContentStyle = styled('div')(({ theme }) => ({
 // ----------------------------------------------------------------------
 
 export default function Payment({ ptId }) {
+    const userInfo = useSelector((state) => state?.auth?.userInfo);
     const smUp = useResponsive('up', 'sm');
 
     const mdUp = useResponsive('up', 'md');
