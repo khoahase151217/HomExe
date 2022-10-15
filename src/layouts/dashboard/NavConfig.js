@@ -46,6 +46,11 @@ const navConfig = [
     path: '/ptdetails',
     icon: getIcon('eva:lock-fill'),
   },
+  {
+    title: 'Payment',
+    path: '/payment',
+    icon: getIcon('eva:lock-fill'),
+  },
 ];
 
 export default navConfig;

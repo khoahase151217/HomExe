@@ -126,6 +126,7 @@ export default function PTDetails() {
                   Van Phu Hoa
                   <Typography sx={{ color: 'text.secondary', mb: 5 }}>Age 20, TP. HCM</Typography>
                 </Typography>
+                <PTImageList />
               </Stack>
             </Box>
           </Box>
@@ -208,13 +209,9 @@ export default function PTDetails() {
                   </List>
                 </Box>
               </Box>
-
-              <Typography variant="h6" gutterBottom>
-                Image List
-              </Typography>
             </Grid>
 
-            <PTImageList />
+            {/* <PTImageList /> */}
 
             {!smUp && (
               <Typography variant="body2" align="center" sx={{ mt: 3 }}>

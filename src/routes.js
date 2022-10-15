@@ -11,6 +11,7 @@ import Register from './pages/Register';
 import Products from './pages/Products';
 import DashboardApp from './pages/DashboardApp';
 import PTDetails from './pages/PTDetails';
+import Payment from './pages/Payment';
 
 // ----------------------------------------------------------------------
 
@@ -46,6 +47,10 @@ export default function Router() {
     {
       path: '/ptdetails',
       element: <PTDetails />,
+    },
+    {
+      path: '/payment',
+      element: <Payment />,
     },
     {
       path: '*',
