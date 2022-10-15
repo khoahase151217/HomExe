@@ -1,6 +1,8 @@
+import { Link as RouterLink } from 'react-router-dom';
 // @mui
+import { alpha, styled } from '@mui/material/styles';
 import PropTypes from 'prop-types';
-import { Card, Typography, CardHeader, CardContent } from '@mui/material';
+import { Card, Typography, CardHeader, CardContent, Grid, Stack, Link, Box } from '@mui/material';
 import { Timeline, TimelineDot, TimelineItem, TimelineContent, TimelineSeparator, TimelineConnector } from '@mui/lab';
 // utils
 import { fDateTime } from '../../../utils/formatTime';
@@ -12,6 +14,14 @@ AppOrderTimeline.propTypes = {
   subheader: PropTypes.string,
   list: PropTypes.array.isRequired,
 };
+
+const TitleStyle = styled(Link)({
+  height: 44,
+  overflow: 'hidden',
+  WebkitLineClamp: 2,
+  display: '-webkit-box',
+  WebkitBoxOrient: 'vertical',
+});
 
 export default function AppOrderTimeline({ title, subheader, list, ...other }) {
   return (
@@ -64,12 +74,41 @@ function OrderItem({ item, isLast }) {
       </TimelineSeparator>
 
       <TimelineContent>
-        <Typography variant="subtitle2">{title}</Typography>
+        <Typography variant="h4">{title}</Typography>
 
         <Typography variant="caption" sx={{ color: 'text.secondary' }}>
           {fDateTime(time)}
         </Typography>
-        <img alt="register" src="/static/courses/1.jpg" />
+        <Grid container sx={{ m: 3 }}>
+
+          <Stack direction="row" justifyContent="space-between" spacing={2} >
+            <img alt="register" src="/static/courses/1.jpg" style={{
+              width: '321.33px',
+              borderRadius: '10px',
+            }} />
+            <Box>
+              <Typography variant="h6">
+                {'Nhóm cơ : Ngực, Vai, Lưng, Bắp tay, Bụng, Mông đùi'}
+              </Typography>
+              <Typography variant="subtitle2">
+                {'Dụng cụ: Thảm tập, Bodyweight, Chai nước suối, Tạ đơn (nếu có)'}
+              </Typography>
+              <Typography
+                variant="body1"
+                sx={{
+                  color: 'text.disabled',
+                  overflow: 'hidden',
+                  WebkitLineClamp: 2,
+                  display: '-webkit-box',
+                  WebkitBoxOrient: 'vertical',
+                }}
+              >
+                {'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin mattis venenatis metus in interdum. consectetur adipiscing elit. Proin mattis venenatis metus in interdum. Donec a dui gravida, ultrices turpis at, malesuada felis. Sed id interdum libero. Integer feugiat lectus in sapien imperdiet'}
+              </Typography>
+            </Box>
+          </Stack>
+        </Grid>
+
       </TimelineContent>
     </TimelineItem>
   );
