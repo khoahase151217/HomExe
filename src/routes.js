@@ -10,6 +10,8 @@ import NotFound from './pages/Page404';
 import Register from './pages/Register';
 import Products from './pages/Products';
 import DashboardApp from './pages/DashboardApp';
+import PTDetails from './pages/PTDetails';
+import Payment from './pages/Payment';
 
 // ----------------------------------------------------------------------
 
@@ -41,6 +43,14 @@ export default function Router() {
         { path: '404', element: <NotFound /> },
         { path: '*', element: <Navigate to="/404" /> },
       ],
+    },
+    {
+      path: '/ptdetails',
+      element: <PTDetails />,
+    },
+    {
+      path: '/payment',
+      element: <Payment />,
     },
     {
       path: '*',
