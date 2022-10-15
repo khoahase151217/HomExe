@@ -8,7 +8,7 @@ import { Timeline, TimelineDot, TimelineItem, TimelineContent, TimelineSeparator
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+// import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { fDateTime } from '../../../utils/formatTime';
 
 // ----------------------------------------------------------------------
@@ -79,7 +79,7 @@ function OrderItem({ item, isLast }) {
 
       <Accordion>
         <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
+          // expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1a-content"
           id="panel1a-header"
         >
