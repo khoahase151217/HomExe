@@ -69,6 +69,7 @@ function OrderItem({ item, isLast }) {
         <Typography variant="caption" sx={{ color: 'text.secondary' }}>
           {fDateTime(time)}
         </Typography>
+        <img alt="register" src="/static/courses/1.jpg" />
       </TimelineContent>
     </TimelineItem>
   );
