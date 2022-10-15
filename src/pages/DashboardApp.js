@@ -1,11 +1,7 @@
 import { faker } from '@faker-js/faker';
 // @mui
 import { useTheme } from '@mui/material/styles';
-import { Grid, Container, Typography, Collapse, Stack, Box } from '@mui/material';
-import Accordion from '@mui/material/Accordion';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { Grid, Container, Typography, Collapse, Card, Stack } from '@mui/material';
 // components
 
 import Page from '../components/Page';
@@ -22,23 +18,24 @@ import {
   AppCurrentSubject,
   AppConversionRates,
   PTCard,
+  News,
 } from '../sections/@dashboard/app';
 import Calendar from './Calendar'
 
 // ----------------------------------------------------------------------
 
 const POST_TITLES = [
-  'Đặng Nhật Kha',
-  'Đặng Nhật Kha',
-  'Đặng Nhật Kha',
-  'Đặng Nhật Kha',
-  'Đặng Nhật Kha',
+  '1 Đặng Nhật Kha',
+  '2 Đặng Nhật Kha',
+  '3 Đặng Nhật Kha thứ tư',
+  // 'Đặng Nhật Kha',
+  // 'Đặng Nhật Kha',
 ];
 
-const posts = [...Array(2)].map((_, index) => ({
+const posts = [...Array(1)].map((_, index) => ({
   id: faker.datatype.uuid(),
   cover: `/static/mock-images/covers/cover_${index + 1}.jpg`,
-  title: POST_TITLES[index + 1],
+  title: POST_TITLES[index],
   createdAt: faker.date.past(),
   view: faker.datatype.number(),
   comment: faker.datatype.number(),
@@ -103,18 +100,36 @@ export default function DashboardApp() {
           Hi Kiệt, Welcome back
         </Typography>
 
-        <Grid container spacing={3}>
+        <Grid container justifyContent={'space-between'} spacing={3}>
           {/* <Grid item xs={12} sm={6} md={4}>
             <AppWidgetSummary title="Slimfit | Yoga" total={'Đặng Nhật Kha'} icon={'ant-design:android-filled'} />
           </Grid> */}
           {/* Thử xài Blog CardContent */}
-          <Container>
-            <Grid container spacing={3}>
+          {/* <Stack > */}
+          {/* <Grid container xs={12} sm={6} md={3}> */}
+          {/* <Grid item xs={12} sm={6} md={3} >
+                <Card sx={{ position: 'relative' }}> */}
+
+
+          {posts.map((post, index) => (
+            <PTCard key={post.id} post={post} index={index} />
+          ))}
+
+          {posts.map((post, index) => (
+            <News key={post.id} post={post} index={index} />
+          ))}
+          {/* </Card>
+              </Grid> */}
+          {/* </Grid> */}
+
+
+
+          {/* <Grid container spacing={3}>
               {posts.map((post, index) => (
                 <PTCard key={post.id} post={post} index={index} />
               ))}
-            </Grid>
-          </Container>
+            </Grid> */}
+          {/* </Stack> */}
 
 
           {/* <PTCard key={1} post={[{}]} index={1} /> */}
@@ -330,7 +345,7 @@ export default function DashboardApp() {
             />
           </Grid> */}
         </Grid>
-      </Container>
-    </Page>
+      </Container >
+    </Page >
   );
 }

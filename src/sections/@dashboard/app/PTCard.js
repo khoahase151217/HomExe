@@ -59,8 +59,7 @@ PTCard.propTypes = {
 
 export default function PTCard({ post, index }) {
     const { cover, title, view, comment, share, author, createdAt } = post;
-    const latestPostLarge = index === 0;
-    const latestPost = index === 0 || index === 0;
+    // const latestPostLarge = index === 0;
 
     const POST_INFO = [
         { number: comment, icon: 'eva:message-circle-fill' },
@@ -69,30 +68,34 @@ export default function PTCard({ post, index }) {
     ];
 
     return (
-        <Grid item xs={12} sm={latestPostLarge ? 12 : 6} md={latestPostLarge ? 9 : 3}>
-            <Card sx={{ position: 'relative' }}>
-                <CardMediaStyle
-                    sx={{
-                        ...((latestPostLarge) && {
-                            pt: 'calc(100% * 4 / 3)',
-                            '&:after': {
-                                top: 0,
-                                content: "''",
-                                width: '100%',
-                                // height: '100%',
-                                position: 'absolute',
-                                bgcolor: (theme) => alpha(theme.palette.grey[900], 0.72),
-                            },
-                        }),
-                        ...(latestPostLarge && {
-                            pt: {
-                                xs: 'calc(100% * 4 / 3)',
-                                sm: 'calc(100% * 1 / 2)',
-                            },
-                        }),
-                    }}
-                >
-                    {/* <SvgIconStyle
+        // <Grid item xs={12} sm={6} md={3}>
+        <Card sx={{
+            position: 'relative',
+            marginTop: '20px',
+            // width: '2px',
+        }}>
+            <CardMediaStyle
+                sx={{
+                    // ...((latestPostLarge) && {
+                    //     pt: 'calc(100% * 4 / 3)',
+                    //     '&:after': {
+                    //         top: 0,
+                    //         content: "''",
+                    //         width: '100%',
+                    //         // height: '100%',
+                    //         position: 'absolute',
+                    //         bgcolor: (theme) => alpha(theme.palette.grey[900], 0.72),
+                    //     },
+                    // }),
+                    // ...(latestPostLarge && {
+                    pt: {
+                        xs: 'calc(100% * 1)',
+                        // sm: 'calc(100% * 1 / 2)',
+                    },
+                    // }),
+                }}
+            >
+                {/* <SvgIconStyle
             color="paper"
             src="/static/icons/shape-avatar.svg"
             sx={{
@@ -105,7 +108,7 @@ export default function PTCard({ post, index }) {
               ...((latestPostLarge || latestPost) && { display: 'none' }),
             }}
           /> */}
-                    {/* <AvatarStyle
+                {/* <AvatarStyle
             alt={author.name}
             src={author.avatarUrl}
             sx={{
@@ -119,59 +122,59 @@ export default function PTCard({ post, index }) {
             }}
           /> */}
 
-                    <CoverImgStyle alt={title} src={latestPostLarge ? cover : author.avatarUrl} />
-                </CardMediaStyle>
+                <CoverImgStyle alt={title} src={author.avatarUrl} />
+            </CardMediaStyle>
 
-                <CardContent
-                    sx={{
-                        pt: 4,
-                        ...((latestPostLarge) && {
-                            bottom: 0,
-                            width: '100%',
-                            position: 'absolute',
-                        }),
-                    }}
+            <CardContent
+                sx={{
+                    pt: 4,
+                    // ...((latestPostLarge) && {
+                    //     bottom: 0,
+                    //     width: '100%',
+                    //     position: 'absolute',
+                    // }),
+                }}
+            >
+
+
+                <TitleStyle
+                    to="#"
+                    color="inherit"
+                    variant="h6"
+                    underline="hover"
+                    component={RouterLink}
+                // sx={{
+                //     ...(latestPostLarge && { typography: 'h5', height: 60 }),
+                //     ...((latestPostLarge) && {
+                //         color: 'common.white',
+                //     }),
+                // }}
                 >
-
-
-                    <TitleStyle
-                        to="#"
-                        color="inherit"
-                        variant="h6"
-                        underline="hover"
-                        component={RouterLink}
-                        sx={{
-                            ...(latestPostLarge && { typography: 'h5', height: 60 }),
-                            ...((latestPostLarge) && {
-                                color: 'common.white',
-                            }),
-                        }}
-                    >
-                        {title}
-                    </TitleStyle>
-                    <Typography gutterBottom variant="caption" sx={{ color: 'text.disabled', display: 'block' }}>
-                        {'Gym | Yoga'}
-                    </Typography>
-                    <InfoStyle>
-                        {POST_INFO.map((info, index) => (
-                            <Box
-                                key={index}
-                                sx={{
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    ml: index === 0 ? 0 : 1.5,
-                                    ...((latestPostLarge) && {
-                                        color: 'grey.500',
-                                    }),
-                                }}
-                            >
-                                <Iconify icon={info.icon} sx={{ width: 16, height: 16, mr: 0.5 }} />
-                                <Typography variant="caption">{fShortenNumber(info.number)}</Typography>
-                            </Box>
-                        ))}
-                    </InfoStyle>
-                </CardContent>
-            </Card>
-        </Grid>
+                    {title}
+                </TitleStyle>
+                <Typography gutterBottom variant="caption" sx={{ color: 'text.disabled', display: 'block' }}>
+                    {'Gym | Yoga'}
+                </Typography>
+                <InfoStyle>
+                    {POST_INFO.map((info, index) => (
+                        <Box
+                            key={index}
+                            sx={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                ml: index === 0 ? 0 : 1.5,
+                                // ...((latestPostLarge) && {
+                                //     color: 'grey.500',
+                                // }),
+                            }}
+                        >
+                            <Iconify icon={info.icon} sx={{ width: 16, height: 16, mr: 0.5 }} />
+                            <Typography variant="caption">{fShortenNumber(info.number)}</Typography>
+                        </Box>
+                    ))}
+                </InfoStyle>
+            </CardContent>
+        </Card>
+        // </Grid>
     );
 }
