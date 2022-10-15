@@ -85,7 +85,7 @@ export default function PersonalPage() {
           </Typography>
           <img src="/static/illustrations/illustration_login.png" alt="login" />
         </SectionStyle>
-      {/* <SectionStyle>
+        {/* <SectionStyle>
 
      
            
@@ -107,31 +107,50 @@ export default function PersonalPage() {
            <Typography sx={{ color: 'text.secondary', mb: 1 }}>0339645857</Typography>
    
            </SectionStyle> */}
-  
+
         <Container maxWidth="sm">
-          <ContentStyle>
-           
-              <Typography variant="h6" gutterBottom>
+          <ContentStyle sc={{ display: 'flex' }}>
+            <Card variant="h3" sx={{ px: 5, mt: 1, mb: 5, width: '25vw', display: "inline-block" }}>
+              <Typography variant="h6" gutterBottom sx={{ mt: 1 }}>
                 Age
               </Typography>
               <Typography sx={{ color: 'text.secondary', mb: 1 }}>24</Typography>
-              <Typography variant="h6" gutterBottom>
+            </Card>
+            <Card sx={{ px: 5, mb: 5, width: '25vw', float: 'left' }}>
+              <Typography variant="h6" gutterBottom sx={{ mt: 1 }} >
                 Gender
               </Typography>
               <Typography sx={{ color: 'text.secondary', mb: 1 }}>Female</Typography>
-              <Typography variant="h6" gutterBottom>
+            </Card>
+            <Card  sx={{ px: 5, mb: 5, width: '25vw', float: 'left' }}>
+              <Typography variant="h6" gutterBottom sx={{ mt: 1 }}>
                 Email Address
               </Typography>
               <Typography sx={{ color: 'text.secondary', mb: 1 }}>thuongle@gmail.com</Typography>
-              <Typography variant="h6" gutterBottom>
+            </Card>
+
+            <Card  sx={{ px: 5, mb: 5, width: '25vw', float: 'left' }}>
+              <Typography variant="h6" gutterBottom sx={{ mt: 1 }}>
                 Phone
               </Typography>
               <Typography sx={{ color: 'text.secondary', mb: 1 }}>0339645857</Typography>
+            </Card>
+            <Card  sx={{ px: 5, mb: 5, width: '25vw', float: 'left' }}>
+              <Typography variant="h6" gutterBottom sx={{ mt: 1 }}>
+                Height
+              </Typography>
+              <Typography sx={{ color: 'text.secondary', mb: 1 }}>173</Typography>
+              <Typography variant="h6" gutterBottom sx={{ mt: 1 }}>
+                Weight
+              </Typography>
+              <Typography sx={{ color: 'text.secondary', mb: 1 }}>53</Typography>
+            </Card>
 
 
-              {/* <AuthSocial /> */}
-            
-            
+
+            {/* <AuthSocial /> */}
+
+
 
 
             {/* <LoginForm /> */}
@@ -157,7 +176,7 @@ export default function PersonalPage() {
               </Typography>
             )}
           </ContentStyle>
-          
+
         </Container>
       </RootStyle>
     </Page>
