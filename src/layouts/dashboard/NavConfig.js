@@ -32,6 +32,17 @@ const navConfig = [
     icon: getIcon('eva:lock-fill'),
   },
   {
+    title: 'Personal Page',
+    path: '/personalPage',
+    icon: getIcon('eva:lock-fill'),
+  },
+  
+  {
+    title: 'Calendar',
+    path: '/calendar',
+    icon: getIcon('eva:lock-fill'),
+  },
+  {
     title: 'register',
     path: '/register',
     icon: getIcon('eva:person-add-fill'),
