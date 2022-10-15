@@ -38,11 +38,6 @@ const navConfig = [
   },
   
   {
-    title: 'Calendar',
-    path: '/calendar',
-    icon: getIcon('eva:lock-fill'),
-  },
-  {
     title: 'register',
     path: '/register',
     icon: getIcon('eva:person-add-fill'),

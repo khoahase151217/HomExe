@@ -31,11 +31,6 @@ export default function Router() {
       path: 'login',
       element: <Login />,
     },
-    
-    {
-      path: 'calendar',
-      element: <Calendar/>,
-    },
     {
       path: 'personalPage',
       element: <PersonalPage />,
