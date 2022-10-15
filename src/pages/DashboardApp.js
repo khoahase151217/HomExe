@@ -1,9 +1,12 @@
 import { faker } from '@faker-js/faker';
+import { useEffect, useState } from 'react';
 // @mui
 import { useTheme } from '@mui/material/styles';
 import { Grid, Container, Typography, Collapse, Card, Stack } from '@mui/material';
 // components
 
+import userApi from '../utils/userApi';
+import scheduleApi from '../utils/scheduleApi';
 import Page from '../components/Page';
 import Iconify from '../components/Iconify';
 // sections
@@ -21,6 +24,8 @@ import {
   News,
 } from '../sections/@dashboard/app';
 import Calendar from './Calendar'
+
+
 
 // ----------------------------------------------------------------------
 
@@ -91,13 +96,35 @@ const lessons = [
 ];
 
 export default function DashboardApp() {
+  // prototype
+  const [user, setUser] = useState();
+  const [userCalendar, setUserCalendar] = useState();
+
   const theme = useTheme();
+  // Call API to get user information
+  useEffect(() => {
+    const initData = async () => {
+      const tmp = await userApi.getUserId('2');
+      console.log(tmp.data);
+      setUser(tmp.data);
+
+      // Call API to get calendar
+      const calendar = await scheduleApi.getUserSchedule('2');
+      console.log(calendar.data);
+      setUserCalendar(calendar.data);
+
+    };
+    initData();
+  }, []);
+
+  console.log(userCalendar);
+  console.log(userCalendar);
 
   return (
     <Page title="Dashboard">
       <Container maxWidth="xl">
         <Typography variant="h4" sx={{ mb: 5 }}>
-          Hi Kiệt, Welcome back
+          Hi {user?.data.email}, Welcome back
         </Typography>
 
         <Grid container justifyContent={'space-between'} spacing={3}>
@@ -247,7 +274,7 @@ export default function DashboardApp() {
               }))}
             />
           </Grid> */}
-          <Calendar  />
+          {userCalendar && <Calendar index={userCalendar}/>}
 
           <Grid item xs={12} md={12} lg={12}>
 
