@@ -1,14 +1,15 @@
-const { get } = require('./apiCaller');
+const { get, put } = require('./apiCaller');
 
 const contractApi = {
-  getAll: () => {
-    const url = '/api/pt';
+ 
+  getContractByUserId: (id = '') => {
+    const url = `/api/contract/user?userId=${id}`;
     return get(url);
   },
-  get: (id = '') => {
-    const url = `/api/pt/user/?userId=${id}`;
-    return get(url);
-  },
+  updateStatusPaymentContract: (id= '')=>{
+    const url = `/api/contract/user?userId=${id}`;
+    return put(url);
+  }
   
 };
 

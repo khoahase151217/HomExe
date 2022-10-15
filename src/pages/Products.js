@@ -5,7 +5,7 @@ import { Container, Stack, Typography, OutlinedInput, InputAdornment } from '@mu
 // components
 import { styled } from '@mui/material/styles';
 import { filter } from 'lodash';
-import contractApi from '../utils/contractApi';
+import PtApi from '../utils/PtApi';
 import Page from '../components/Page';
 
 import {
@@ -79,7 +79,7 @@ export default function EcommerceShop() {
 
     useEffect(() => {
         const initData = async () => {
-            const tmp = await contractApi.getAll().then((res) => res.data);
+            const tmp = await PtApi.getAll().then((res) => res.data);
             console.log(tmp.data);
             setProducts(tmp.data);
         };
