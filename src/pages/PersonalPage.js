@@ -110,32 +110,32 @@ export default function PersonalPage() {
 
         <Container maxWidth="sm">
           <ContentStyle sc={{ display: 'flex' }}>
-            <Card variant="h3" sx={{ px: 5, mt: 1, mb: 5, width: '25vw', display: "inline-block" }}>
+            <Card variant="h3" sx={{ px: 5, mt: 1, mb: 1, width: '25vw', display: "inline-block" }}>
               <Typography variant="h6" gutterBottom sx={{ mt: 1 }}>
                 Age
               </Typography>
               <Typography sx={{ color: 'text.secondary', mb: 1 }}>24</Typography>
             </Card>
-            <Card sx={{ px: 5, mb: 5, width: '25vw', float: 'left' }}>
+            <Card sx={{ px: 5, mb: 1, width: '25vw', float: 'left' }}>
               <Typography variant="h6" gutterBottom sx={{ mt: 1 }} >
                 Gender
               </Typography>
               <Typography sx={{ color: 'text.secondary', mb: 1 }}>Female</Typography>
             </Card>
-            <Card  sx={{ px: 5, mb: 5, width: '25vw', float: 'left' }}>
+            <Card  sx={{ px: 5, mb: 1, width: '25vw', float: 'left' }}>
               <Typography variant="h6" gutterBottom sx={{ mt: 1 }}>
                 Email Address
               </Typography>
               <Typography sx={{ color: 'text.secondary', mb: 1 }}>thuongle@gmail.com</Typography>
             </Card>
 
-            <Card  sx={{ px: 5, mb: 5, width: '25vw', float: 'left' }}>
+            <Card  sx={{ px: 5, mb: 1, width: '25vw', float: 'left' }}>
               <Typography variant="h6" gutterBottom sx={{ mt: 1 }}>
                 Phone
               </Typography>
               <Typography sx={{ color: 'text.secondary', mb: 1 }}>0339645857</Typography>
             </Card>
-            <Card  sx={{ px: 5, mb: 5, width: '25vw', float: 'left' }}>
+            <Card  sx={{ px: 5, mb: 1, width: '25vw', float: 'left' }}>
               <Typography variant="h6" gutterBottom sx={{ mt: 1 }}>
                 Height
               </Typography>
@@ -147,7 +147,7 @@ export default function PersonalPage() {
             </Card>
 
 
-
+8
             {/* <AuthSocial /> */}
 
 

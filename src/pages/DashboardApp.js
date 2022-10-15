@@ -1,7 +1,11 @@
 import { faker } from '@faker-js/faker';
 // @mui
 import { useTheme } from '@mui/material/styles';
-import { Grid, Container, Typography, Collapse } from '@mui/material';
+import { Grid, Container, Typography, Collapse, Stack, Box } from '@mui/material';
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 // components
 
 import Page from '../components/Page';
@@ -45,6 +49,49 @@ const posts = [...Array(2)].map((_, index) => ({
     avatarUrl: `/static/mock-images/avatars/avatar_${index + 1}.jpg`,
   },
 }));
+const lessons = [
+  'Tập cơ bụng đứng',
+  'Tập bụng đứng không cần nằm',
+  'Cardio mông to đùi thon',
+  'Săn chắc cơ ngực tại nhà',
+  '5 bài tập bụng eo thon 6 múi',
+  'Tập cơ bụng đứng',
+  'Tập bụng đứng không cần nằm',
+  'Cardio mông to đùi thon',
+  'Săn chắc cơ ngực tại nhà',
+  '5 bài tập bụng eo thon 6 múi',
+  'Tập cơ bụng đứng',
+  'Tập bụng đứng không cần nằm',
+  'Cardio mông to đùi thon',
+  'Săn chắc cơ ngực tại nhà',
+  '5 bài tập bụng eo thon 6 múi',
+  'Tập cơ bụng đứng',
+  'Tập bụng đứng không cần nằm',
+  'Cardio mông to đùi thon',
+  'Săn chắc cơ ngực tại nhà',
+  '5 bài tập bụng eo thon 6 múi',
+  'Tập cơ bụng đứng',
+  'Tập bụng đứng không cần nằm',
+  'Cardio mông to đùi thon',
+  'Săn chắc cơ ngực tại nhà',
+  '5 bài tập bụng eo thon 6 múi',
+  'Tập cơ bụng đứng',
+  'Tập bụng đứng không cần nằm',
+  'Cardio mông to đùi thon',
+  'Săn chắc cơ ngực tại nhà',
+  '5 bài tập bụng eo thon 6 múi',
+  'Tập cơ bụng đứng',
+  'Tập bụng đứng không cần nằm',
+  'Cardio mông to đùi thon',
+  'Săn chắc cơ ngực tại nhà',
+  '5 bài tập bụng eo thon 6 múi',
+  'Tập cơ bụng đứng',
+  'Tập bụng đứng không cần nằm',
+  'Cardio mông to đùi thon',
+  'Săn chắc cơ ngực tại nhà',
+  '5 bài tập bụng eo thon 6 múi',
+
+];
 
 export default function DashboardApp() {
   const theme = useTheme();
@@ -185,9 +232,10 @@ export default function DashboardApp() {
               }))}
             />
           </Grid> */}
-          <Calendar/>
+          <Calendar />
 
           <Grid item xs={12} md={12} lg={12}>
+
             <AppOrderTimeline
               title="Agenda"
               list={[...Array(10)].map((_, index) => ({
@@ -233,7 +281,7 @@ export default function DashboardApp() {
                   'Cardio mông to đùi thon',
                   'Săn chắc cơ ngực tại nhà',
                   '5 bài tập bụng eo thon 6 múi',
-                  
+
                 ][index],
                 type: `order${index + 1}`,
                 time: faker.date.past(),
