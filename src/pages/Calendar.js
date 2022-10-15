@@ -138,8 +138,8 @@
 
 import React from 'react';
 import '@mobiscroll/react/dist/css/mobiscroll.min.css';
-import { Eventcalendar, getJson, toast } from '@mobiscroll/react';
-import { Card, Container, Box, Typography } from '@mui/material';
+import { Eventcalendar, toast } from '@mobiscroll/react';
+import { Card, Container, Box} from '@mui/material';
 import calendar from '../sections/@dashboard/app/calendar';
 
 const CALENDAR_CUSTOMER_ = [{
