@@ -19,8 +19,8 @@ import {
   ListItemIcon,
   Avatar,
 } from '@mui/material';
-import AddIcon from '@mui/icons-material/Add';
-import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium';
+// import AddIcon from '@mui/icons-material/Add';
+// import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium';
 // hooks
 // eslint-disable-next-line import/no-unresolved
 import PTRating from 'src/components/PTRating';
@@ -155,7 +155,7 @@ export default function PTDetails() {
             >
               <PTRating />
               <Fab variant="extended" color="primary" aria-label="add">
-                <AddIcon sx={{ mr: 1 }} />
+                {/* <AddIcon sx={{ mr: 1 }} /> */}
                 Connect
               </Fab>
             </Box>
@@ -193,7 +193,7 @@ export default function PTDetails() {
                     <ListItem disablePadding>
                       <ListItemButton>
                         <ListItemIcon>
-                          <WorkspacePremiumIcon />
+                          {/* <WorkspacePremiumIcon /> */}
                         </ListItemIcon>
                         <ListItemText primary="Gymer of the year 2022" />
                       </ListItemButton>
@@ -201,7 +201,7 @@ export default function PTDetails() {
                     <ListItem disablePadding>
                       <ListItemButton>
                         <ListItemIcon>
-                          <WorkspacePremiumIcon />
+                          {/* <WorkspacePremiumIcon /> */}
                         </ListItemIcon>
                         <ListItemText primary="Yoga Coacher Professional" />
                       </ListItemButton>

@@ -1,20 +1,17 @@
 import { Link as RouterLink } from 'react-router-dom';
 // @mui
+import { Card, Container, Link, Stack, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { Card, Link, Container, Typography, Stack } from '@mui/material';
 // hooks
 // eslint-disable-next-line import/no-unresolved
 import PaymentForm from 'src/sections/auth/PaymentForm';
-import QRCode from 'react-qr-code';
 // eslint-disable-next-line import/no-unresolved
 import BankCard from 'src/components/BankCard';
 import useResponsive from '../hooks/useResponsive';
 // components
-import Page from '../components/Page';
 import Logo from '../components/Logo';
+import Page from '../components/Page';
 // sections
-import { LoginForm } from '../sections/auth/login';
-import AuthSocial from '../sections/auth/AuthSocial';
 
 // ----------------------------------------------------------------------
 
