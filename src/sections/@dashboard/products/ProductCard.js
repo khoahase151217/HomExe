@@ -76,6 +76,7 @@ ShopProductCard.propTypes = {
 };
 
 export default function ShopProductCard({ product }) {
+
     // const { name, cover, price, colors, status, priceSale} = product;
     const { fullName, cover, categoryName, age, rating } = product;
     console.log(product);
@@ -83,6 +84,7 @@ export default function ShopProductCard({ product }) {
         <Card>
             <Box sx={{ pt: '100%', position: 'relative' }}>
                 {/* {status && (
+
           <Label
             variant="filled"
             color={(status === 'sale' && 'error') || 'info'}
@@ -97,12 +99,8 @@ export default function ShopProductCard({ product }) {
             {status}
           </Label>
         )} */}
-                <ProductImgStyle
-                    alt={fullName}
-                    src={cover ? null : `/static/mock-images/avatars/avatar_1.jpg`}
-                />
-            </Box>
-
+        <ProductImgStyle alt={fullName} src={cover ? cover : `/static/mock-images/avatars/avatar_1.jpg`} />
+      </Box>
             <Stack spacing={1} sx={{ p: 3 }}>
                 <Link
                     to={`/product/${product.ptId}`}

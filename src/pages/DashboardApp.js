@@ -1,9 +1,16 @@
 import { faker } from '@faker-js/faker';
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+
 // @mui
 import { useTheme } from '@mui/material/styles';
 import { Grid, Container, Typography, Collapse, Card, Stack } from '@mui/material';
 // components
 
+import userApi from '../utils/userApi';
+import PtApi from '../utils/PtApi';
+
+import scheduleApi from '../utils/scheduleApi';
 import Page from '../components/Page';
 import Iconify from '../components/Iconify';
 // sections
@@ -20,8 +27,11 @@ import {
     PTCard,
     News,
 } from '../sections/@dashboard/app';
-import Calendar from './Calendar';
-import { useSelector } from 'react-redux';
+import Calendar from './Calendar'
+
+
+
+
 
 // ----------------------------------------------------------------------
 
@@ -91,14 +101,42 @@ const lessons = [
 ];
 
 export default function DashboardApp() {
-    const theme = useTheme();
 
-    return (
-        <Page title="Dashboard">
-            <Container maxWidth="xl">
-                <Typography variant="h4" sx={{ mb: 5 }}>
-                    Hi Kiệt, Welcome back
-                </Typography>
+const userInfo = useSelector((state) => state?.auth?.userInfo);
+  // prototype
+  const [user, setUser] = useState();
+  const [pt, setPt] = useState();
+  const [userCalendar, setUserCalendar] = useState();
+
+  const theme = useTheme();
+  // Call API to get user information
+  useEffect(() => {
+    const initData = async () => {
+      const tmp = await userApi.getUserId(userInfo.userId);
+      console.log(tmp.data);
+      setUser(tmp.data);
+
+      // Call API to get calendar
+      const calendar = await scheduleApi.getUserSchedule(userInfo.userId);
+      console.log(calendar.data);
+      setUserCalendar(calendar.data);
+
+      const PT = await PtApi.getPtByUserId(userInfo.userId);
+      setPt(PT.data.data);
+
+    };
+    initData();
+  }, []);
+
+  console.log(userCalendar);
+  console.log("PT:", pt);
+
+  return (
+    <Page title="Dashboard">
+      <Container maxWidth="xl">
+        <Typography variant="h4" sx={{ mb: 5 }}>
+          Hi, Welcome back
+        </Typography>
 
                 <Grid container justifyContent={'space-between'} spacing={3}>
                     {/* <Grid item xs={12} sm={6} md={4}>
@@ -243,7 +281,7 @@ export default function DashboardApp() {
               }))}
             />
           </Grid> */}
-                    <Calendar />
+          {userCalendar && pt && <Calendar index={userCalendar} linkMeet={pt.linkMeet}/>}
 
                     <Grid item xs={12} md={12} lg={12}>
                         <AppOrderTimeline

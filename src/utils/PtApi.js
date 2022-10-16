@@ -9,6 +9,10 @@ const PtApi = {
         const url = `/api/pt/detail`;
         return get(url, { ptId: id });
     },
+    getPtByUserId: (userId = '') => {
+        const url = `/api/pt/user`;
+        return get(url, { userId: userId });
+    }
 };
 
 export default PtApi;

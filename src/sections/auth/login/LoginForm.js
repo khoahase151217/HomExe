@@ -49,7 +49,7 @@ export default function LoginForm() {
         const res = await userApi.login(passProps);
 
         await dispatch(login(res.data.data));
-        return navigate('/dashboard', { replace: true });
+        return navigate('/dashboard/app', { replace: true });
     };
 
     return (
