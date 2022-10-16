@@ -143,6 +143,7 @@ export default function PTDetails() {
     useEffect(() => {
         const initData = async () => {
             const tmp = await PtApi.getPtById(id);
+            console.log(tmp.data.data)
             setPT(tmp.data.data);
         };
         initData();

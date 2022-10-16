@@ -8,8 +8,9 @@ import Select from '@mui/material/Select';
 import React, { useEffect, useReducer, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom/dist';
 import contractApi from 'src/utils/contractApi';
-import PtApi from 'src/utils/PtApi';
+// import PtApi from 'src/utils/PtApi';
 import userApi from 'src/utils/userApi';
 // import PtApi from 'src/utils/PtApi';
 
@@ -57,14 +58,14 @@ export default function PaymentForm() {
     //     handleInput(event);
     // };
 
-    useEffect(() => {
-        const initData = async () => {
-            const tmp = await PtApi.getPtById(paymentInfo?.ptId);
-            setPT(tmp.data.data);
-        };
-        initData();
-    }, []);
-
+    // useEffect(() => {
+    //     const initData = async () => {
+    //         const tmp = await PtApi.getPtById(paymentInfo?.ptId);
+    //         setPT(tmp.data.data);
+    //     };
+    //     initData();
+    // }, []);
+    const navigate = useNavigate()
     const months = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
     const schedules = [
         '7.00 - 9.30 Mon, Thu',
@@ -83,6 +84,7 @@ export default function PaymentForm() {
 
     const handleSubmit = (evt) => {
         evt.preventDefault();
+        console.log(paymentInfo)
         const postData = async () => {
             await contractApi.postContract({
                 userId: userInfo.userId,
@@ -93,6 +95,7 @@ export default function PaymentForm() {
             });
         };
         postData();
+        navigate('/dashboard/app')
     };
 
     return (
@@ -126,14 +129,14 @@ export default function PaymentForm() {
                 value={userInfo?.phone}
                 onSubmit={handleSubmit}
             />
-            <TextField
+            {/* <TextField
                 sx={{ my: 1 }}
                 label="PT Name"
                 variant="outlined"
                 fullWidth
                 required
                 value={PT?.fullName}
-            />
+            /> */}
             {/* <FormControl fullwidth>
                     <InputLabel id="select-month">Number of months</InputLabel>
                     <Select
@@ -166,10 +169,10 @@ export default function PaymentForm() {
                     shrink: true,
                 }}
             />
-            <Link to='/dashboard/app'>
+            
             <Button type="submit" variant="contained" color="primary" fullWidth>
                 I have completed the payment
-            </Button></Link>
+            </Button>
         </form>
     );
 }
