@@ -135,7 +135,7 @@ const userInfo = useSelector((state) => state?.auth?.userInfo);
     <Page title="Dashboard">
       <Container maxWidth="xl">
         <Typography variant="h4" sx={{ mb: 5 }}>
-          Hi {user?.data.email}, Welcome back
+          Hi, Welcome back
         </Typography>
 
                 <Grid container justifyContent={'space-between'} spacing={3}>
