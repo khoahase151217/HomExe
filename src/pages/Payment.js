@@ -61,7 +61,9 @@ const ContentStyle = styled('div')(({ theme }) => ({
 
 export default function Payment({ ptId }) {
     const userInfo = useSelector((state) => state?.auth?.userInfo);
+    const paymentInfo = useSelector((state) => state?.auth?.paymentInfo);
     const smUp = useResponsive('up', 'sm');
+    console.log({ paymentInfo, userInfo });
 
     const mdUp = useResponsive('up', 'md');
 
@@ -112,7 +114,7 @@ export default function Payment({ ptId }) {
                         </Typography>
 
                         <Typography sx={{ color: 'text.secondary', mb: 5 }}>
-                            Enter your details below.
+                            Homexe's infomation
                         </Typography>
 
                         {/* <AuthSocial /> */}
