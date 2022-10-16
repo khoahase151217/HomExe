@@ -13,56 +13,53 @@ import { login } from 'src/app/rootReducer';
 import userApi from '../../../utils/userApi';
 // components
 import Iconify from '../../../components/Iconify';
-import { FormProvider, RHFTextField, RHFCheckbox } from '../../../components/hook-form';
+import { RHFTextField, RHFCheckbox } from '../../../components/hook-form';
 
 // ----------------------------------------------------------------------
+const defaultValues = {
+    username: '',
+    password: '',
+    remember: true,
+};
+
+const LoginSchema = Yup.object({
+    username: Yup.string().required('Username is required'),
+    password: Yup.string().required('Password is required'),
+}).required();
 
 export default function LoginForm() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const userInfo = useSelector((state) => state.auth.userInfo);
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-
 
     const [showPassword, setShowPassword] = useState(false);
 
-    const LoginSchema = Yup.object().shape({
-        email: Yup.string().required('Username is required'),
-        password: Yup.string().required('Password is required'),
-    });
-
-    const defaultValues = {
-        email: '',
-        password: '',
-        remember: true,
-    };
-
     const methods = useForm({
-        resolver: yupResolver(LoginSchema),
         defaultValues,
+        resolver: yupResolver(LoginSchema),
     });
 
     const {
+        control,
         handleSubmit,
-        formState: { isSubmitting },
+        formState: { isSubmitting, errors },
     } = methods;
 
-    const onSubmit = async () => {
-        // call api login from be
-        // res -> {id:123,name:'zxc'}
-        const login = userApi.login(username, password);
-        await dispatch(login(login));
-        console.log({ userInfo });
-        return navigate('/dashboard', { replace: true });
+    const onSubmit = async ({ remember, ...passProps }) => {
+        const res = await userApi.login(passProps);
+
+        await dispatch(login(res.data.data));
+        return navigate('/dashboard/app', { replace: true });
     };
 
     return (
-        <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit)}>
             <Stack spacing={3}>
-                <RHFTextField name="username" label="Username" />
+                <RHFTextField errors={errors} control={control} name="username" label="Username" />
 
                 <RHFTextField
+                    errors={errors}
+                    control={control}
                     name="password"
                     label="Password"
                     type={showPassword ? 'text' : 'password'}
@@ -89,7 +86,7 @@ export default function LoginForm() {
                 justifyContent="space-between"
                 sx={{ my: 2 }}
             >
-                <RHFCheckbox name="remember" label="Remember me" />
+                <RHFCheckbox control={control} name="remember" label="Remember me" />
                 <Link variant="subtitle2" underline="hover">
                     Forgot password?
                 </Link>
@@ -101,9 +98,9 @@ export default function LoginForm() {
                 type="submit"
                 variant="contained"
                 loading={isSubmitting}
-                >
+            >
                 Login
             </LoadingButton>
-        </FormProvider>
+        </form>
     );
 }

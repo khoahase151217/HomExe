@@ -78,6 +78,7 @@ ShopProductCard.propTypes = {
 export default function ShopProductCard({ product }) {
   // const { name, cover, price, colors, status, priceSale} = product;
   const { fullName, cover, categoryName , age, rating } = product;
+  console.log('Meowww');
   console.log(product);
   return (
     <Card>
@@ -97,7 +98,7 @@ export default function ShopProductCard({ product }) {
             {status}
           </Label>
         )} */}
-        <ProductImgStyle alt={fullName} src={cover ? null : `/static/mock-images/avatars/avatar_1.jpg`} />
+        <ProductImgStyle alt={fullName} src={cover ? cover : `/static/mock-images/avatars/avatar_1.jpg`} />
       </Box>
 
       <Stack spacing={1} sx={{ p: 3 }}>

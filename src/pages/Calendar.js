@@ -136,11 +136,11 @@
 // };
 // export default App;
 
-import { Eventcalendar, toast } from '@mobiscroll/react';
+import { Eventcalendar } from '@mobiscroll/react';
 import '@mobiscroll/react/dist/css/mobiscroll.min.css';
 import { Box, Container } from '@mui/material';
 import moment from 'moment';
-import React from 'react';
+import React, { useRef } from 'react';
 
 
 
@@ -529,7 +529,7 @@ const CALENDAR_CUSTOMER_ = [
 
 
 
-function Calendar({index}) {
+function Calendar({index, linkMeet}) {
 
   const SLOT_CATEGORIES = [
     'T07:00:00.000Z,T09:30:00.000Z,1,4',
@@ -556,14 +556,14 @@ function Calendar({index}) {
     {
       "start": moment().weekday(dataArray[2]).format('YYYY-MM-DD').concat(dataArray[0]),
       "end": moment().weekday(dataArray[2]).format('YYYY-MM-DD').concat(dataArray[1]),
-      "title": "link Meet",
-      "color": "red"
+      "title": linkMeet,
+      "color": "#0288D1"
     },
     {
       "start": moment().weekday(dataArray[3]).format('YYYY-MM-DD').concat(dataArray[0]),
       "end": moment().weekday(dataArray[3]).format('YYYY-MM-DD').concat(dataArray[1]),
-      "title": "link Meet",
-      "color": "red"
+      "title": linkMeet,
+      "color": "#0288D1"
   
     }
   ]
@@ -571,7 +571,7 @@ function Calendar({index}) {
   
 
   const [myEvents, setEvents] = React.useState([]);
-  
+  const ref = useRef();
 
   // React.useEffect(() => {
   //     getJson('https://trial.mobiscroll.com/events/?vers=5', (events) => {
@@ -584,11 +584,10 @@ function Calendar({index}) {
   // React.useEffect(() => {
   //   setEvents(CALENDAR_CUSTOMER_);
   // });
-
   const onEventClick = React.useCallback((event) => {
-    toast({
-      message: event.event.title
-    });
+    ref.current.href=event.event.title;
+    ref.current.target = '_blank';
+    ref.current.click();
   }, []);
 
   const view = React.useMemo(() => {
@@ -610,6 +609,7 @@ function Calendar({index}) {
         {
           borderRadius: '10px',
         }}>
+          <a ref={ref} style={{display: 'none'}} />
         <Eventcalendar
           theme="ios"
           themeVariant="light"
