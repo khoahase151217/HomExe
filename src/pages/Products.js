@@ -86,10 +86,10 @@ export default function EcommerceShop() {
         initData();
     }, []);
     return (
-        <Page title="Dashboard: Personal Trainer List">
+        <Page title="Dashboard: Personal Trainers List">
             <Container>
                 <Typography variant="h4" sx={{ mb: 5 }}>
-                    Personal Trainer List
+                    Personal Trainers List
                 </Typography>
                 <SearchStyle
                     value={filterName}

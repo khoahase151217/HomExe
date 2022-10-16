@@ -18,49 +18,49 @@ import Payment from './pages/Payment';
 // ----------------------------------------------------------------------
 
 export default function Router() {
-  return useRoutes([
-    {
-      path: '/dashboard',
-      element: <DashboardLayout />,
-      children: [
-        { path: 'app', element: <DashboardApp /> },
-        { path: 'user', element: <User /> },
-        { path: 'products', element: <Products /> },
-        { path: 'blog', element: <Blog /> },
-      ],
-    },
-    {
-      path: 'login',
-      element: <Login />,
-    },
-    {
-      path: 'personalPage',
-      element: <PersonalPage />,
-    },
-    {
-      path: 'register',
-      element: <Register />,
-    },
-    {
-      path: '/',
-      element: <LogoOnlyLayout />,
-      children: [
-        { path: '/', element: <Navigate to="/dashboard/app" /> },
-        { path: '404', element: <NotFound /> },
-        { path: '*', element: <Navigate to="/404" /> },
-      ],
-    },
-    {
-      path: '/ptdetails',
-      element: <PTDetails />,
-    },
-    {
-      path: '/payment',
-      element: <Payment />,
-    },
-    {
-      path: '*',
-      element: <Navigate to="/404" replace />,
-    },
-  ]);
+    return useRoutes([
+        {
+            path: '/dashboard',
+            element: <DashboardLayout />,
+            children: [
+                { path: 'app', element: <DashboardApp /> },
+                { path: 'user', element: <User /> },
+                { path: 'products', element: <Products /> },
+                { path: 'blog', element: <Blog /> },
+            ],
+        },
+        {
+            path: 'login',
+            element: <Login />,
+        },
+        {
+            path: 'personalPage',
+            element: <PersonalPage />,
+        },
+        {
+            path: 'register',
+            element: <Register />,
+        },
+        {
+            path: '/',
+            element: <LogoOnlyLayout />,
+            children: [
+                { path: '/', element: <Navigate to="/dashboard/app" /> },
+                { path: '404', element: <NotFound /> },
+                { path: '*', element: <Navigate to="/404" /> },
+            ],
+        },
+        {
+            path: '/product/:id',
+            element: <PTDetails />,
+        },
+        {
+            path: '/payment',
+            element: <Payment />,
+        },
+        {
+            path: '*',
+            element: <Navigate to="/404" replace />,
+        },
+    ]);
 }

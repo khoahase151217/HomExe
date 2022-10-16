@@ -136,18 +136,151 @@
 // };
 // export default App;
 
-import React from 'react';
+import { Eventcalendar } from '@mobiscroll/react';
 import '@mobiscroll/react/dist/css/mobiscroll.min.css';
-import { Eventcalendar, toast } from '@mobiscroll/react';
-import { Card, Container, Box} from '@mui/material';
-import calendar from '../sections/@dashboard/app/calendar';
+import { Box, Container } from '@mui/material';
+import moment from 'moment';
+import React, { useRef } from 'react';
 
-const CALENDAR_CUSTOMER_ = [{
+
+
+
+const CALENDAR_CUSTOMER_ = [
+  // 1
+  {
     "start": "2022-10-17T07:00:00.000Z",
-    "end": "2022-10-20T16:00:00.000Z",
-    "title": "Business of Software Conference",
+    "end": "2022-10-17T08:30:00.000Z",
+    "title": "1",
     "color": "#ff6d42"
-  }, {
+  },
+  {
+    "start": "2022-10-17T09:00:00.000Z",
+    "end": "2022-10-17T10:30:00.000Z",
+    "title": "1",
+    "color": "#913aa7"
+  },
+  {
+    "start": "2022-10-17T14:00:00.000Z",
+    "end": "2022-10-17T15:30:00.000Z",
+    "title": "1",
+    "color": "#de3d83"
+  },
+  {
+    "start": "2022-10-17T16:00:00.000Z",
+    "end": "2022-10-17T17:30:00.000Z",
+    "title": "1",
+    "color": "#37bbe4"
+  },
+  // 2
+  {
+    "start": "2022-10-20T07:00:00.000Z",
+    "end": "2022-10-20T08:30:00.000Z",
+    "title": "2",
+    "color": "#ff6d42"
+  },
+  {
+    "start": "2022-10-20T09:00:00.000Z",
+    "end": "2022-10-20T10:30:00.000Z",
+    "title": "2",
+    "color": "#913aa7"
+  },
+  {
+    "start": "2022-10-20T14:00:00.000Z",
+    "end": "2022-10-20T15:30:00.000Z",
+    "title": "2",
+    "color": "#de3d83"
+  },
+  {
+    "start": "2022-10-20T16:00:00.000Z",
+    "end": "2022-10-20T17:30:00.000Z",
+    "title": "2",
+    "color": "#37bbe4"
+  },
+
+  // 3
+  {
+    "start": "2022-10-18T07:00:00.000Z",
+    "end": "2022-10-18T08:30:00.000Z",
+    "title": "3",
+    "color": "#37bbe4"
+  },
+  {
+    "start": "2022-10-18T09:00:00.000Z",
+    "end": "2022-10-18T10:30:00.000Z",
+    "title": "3",
+    "color": "#bb0000"
+  },
+  {
+    "start": "2022-10-18T14:00:00.000Z",
+    "end": "2022-10-18T15:30:00.000Z",
+    "title": "3",
+    "color": "#a71111"
+  },
+  {
+    "start": "2022-10-18T16:00:00.000Z",
+    "end": "2022-10-18T17:30:00.000Z",
+    "title": "3",
+    "color": "#d7be0d"
+  },
+  // 4
+  {
+    "start": "2022-10-21T07:00:00.000Z",
+    "end": "2022-10-21T08:30:00.000Z",
+    "title": "4",
+    "color": "#37bbe4"
+  },
+  {
+    "start": "2022-10-21T09:00:00.000Z",
+    "end": "2022-10-21T10:30:00.000Z",
+    "title": "4",
+    "color": "#bb0000"
+  },
+  {
+    "start": "2022-10-21T14:00:00.000Z",
+    "end": "2022-10-21T15:30:00.000Z",
+    "title": "4",
+    "color": "#a71111"
+  },
+  {
+    "start": "2022-10-21T16:00:00.000Z",
+    "end": "2022-10-21T17:30:00.000Z",
+    "title": "4",
+    "color": "#d7be0d"
+  },
+
+  // 5
+  {
+    "start": "2022-10-19T07:00:00.000Z",
+    "end": "2022-10-19T08:30:00.000Z",
+    "title": "5",
+    "color": "#45ce7b"
+  },
+  {
+    "start": "2022-10-19T09:00:00.000Z",
+    "end": "2022-10-19T10:30:00.000Z",
+    "title": "5",
+    "color": "#f9c603"
+  },
+  {
+    "start": "2022-10-19T14:00:00.000Z",
+    "end": "2022-10-19T15:30:00.000Z",
+    "title": "5",
+    "color": "#a71111"
+  },
+  {
+    "start": "2022-10-19T16:00:00.000Z",
+    "end": "2022-10-19T17:30:00.000Z",
+    "title": "5",
+    "color": "#d7be0d"
+  },
+
+
+
+
+
+
+
+  {
     "start": "2022-10-15T11:00:00.000Z",
     "end": "2022-10-16T19:00:00.000Z",
     "title": "Friends binge marathon",
@@ -396,65 +529,105 @@ const CALENDAR_CUSTOMER_ = [{
 
 
 
-function Calendar() {
+function Calendar({index, linkMeet}) {
 
-    const [myEvents, setEvents] = React.useState([]);
-
-    // React.useEffect(() => {
-    //     getJson('https://trial.mobiscroll.com/events/?vers=5', (events) => {
-    //         console.log(events);
-    //         setEvents(events);
-    //     }, 'jsonp');
-    // }, []);
-
-    // setEvents(CALENDAR_CUSTOMER_);
-    React.useEffect(() => {
-        setEvents(CALENDAR_CUSTOMER_);
-    });
-
-    const onEventClick = React.useCallback((event) => {
-        toast({
-            message: event.event.title
-        });
-    }, []);
-
-    const view = React.useMemo(() => {
-        return {
-            schedule: { type: 'week' }
-        };
-    }, []);
-
-    return (
-        <Container
-            sx={
-                {
-                    borderRadius: '10px',
-                    mb: 2,
-                    mt: 3,
-                }
-            }>
-            <Box height="500px" sx={
-                {
-                    borderRadius: '10px',
-                }}>
-                <Eventcalendar
-                    theme="ios"
-                    themeVariant="light"
-                    clickToCreate={false}
-                    dragToCreate={false}
-                    dragToMove={false}
-                    dragToResize={false}
-                    eventDelete={false}
-                    data={myEvents}
-                    view={view}
-                    onEventClick={onEventClick}
-                />
-            </Box>
-
-        </Container >
+  const SLOT_CATEGORIES = [
+    'T07:00:00.000Z,T09:30:00.000Z,1,4',
+    'T09:30:00.000Z,T11:00:00.000Z,1,4',
+    'T14:00:00.000Z,T15:30:00.000Z,1,4',
+    'T15:30:00.000Z,T17:00:00.000Z,1,4',
+    'T07:00:00.000Z,T09:30:00.000Z,2,5',
+    'T09:30:00.000Z,T11:00:00.000Z,2,5',
+    'T14:00:00.000Z,T15:30:00.000Z,2,5',
+    'T15:30:00.000Z,T17:00:00.000Z,2,5',
+    'T07:00:00.000Z,T09:30:00.000Z,4,7',
+    'T09:30:00.000Z,T11:00:00.000Z,4,7',
+    'T14:00:00.000Z,T15:30:00.000Z,4,7',
+    'T15:30:00.000Z,T17:00:00.000Z,4,7',
+  ];
+  console.log("index", index);
+  const data =SLOT_CATEGORIES[index.data];
+  console.log (SLOT_CATEGORIES);
 
 
-    );
+  const dataArray = data?.split(",");
+  
+  const SLOT_COMPONENTS = [
+    {
+      "start": moment().weekday(dataArray[2]).format('YYYY-MM-DD').concat(dataArray[0]),
+      "end": moment().weekday(dataArray[2]).format('YYYY-MM-DD').concat(dataArray[1]),
+      "title": linkMeet,
+      "color": "#0288D1"
+    },
+    {
+      "start": moment().weekday(dataArray[3]).format('YYYY-MM-DD').concat(dataArray[0]),
+      "end": moment().weekday(dataArray[3]).format('YYYY-MM-DD').concat(dataArray[1]),
+      "title": linkMeet,
+      "color": "#0288D1"
+  
+    }
+  ]
+
+  
+
+  const [myEvents, setEvents] = React.useState([]);
+  const ref = useRef();
+
+  // React.useEffect(() => {
+  //     getJson('https://trial.mobiscroll.com/events/?vers=5', (events) => {
+  //         console.log(events);
+  //         setEvents(events);
+  //     }, 'jsonp');
+  // }, []);
+
+  // setEvents(CALENDAR_CUSTOMER_);
+  // React.useEffect(() => {
+  //   setEvents(CALENDAR_CUSTOMER_);
+  // });
+  const onEventClick = React.useCallback((event) => {
+    ref.current.href=event.event.title;
+    ref.current.target = '_blank';
+    ref.current.click();
+  }, []);
+
+  const view = React.useMemo(() => {
+    return {
+      schedule: { type: 'week',startTime: '07:00',endTime: '17:00',  }
+    };
+  }, []);
+
+  return (
+    <Container
+      sx={
+        {
+          borderRadius: '10px',
+          mb: 2,
+          mt: 3,
+        }
+      }>
+      <Box height="500px" sx={
+        {
+          borderRadius: '10px',
+        }}>
+          <a ref={ref} style={{display: 'none'}} />
+        <Eventcalendar
+          theme="ios"
+          themeVariant="light"
+          clickToCreate={false}
+          dragToCreate={false}
+          dragToMove={false}
+          dragToResize={false}
+          eventDelete={false}
+          data={SLOT_COMPONENTS}
+          view={view}
+          onEventClick={onEventClick}
+        />
+      </Box>
+
+    </Container >
+
+
+  );
 }
 
 export default Calendar;

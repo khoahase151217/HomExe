@@ -1,151 +1,185 @@
 import { faker } from '@faker-js/faker';
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+
 // @mui
 import { useTheme } from '@mui/material/styles';
 import { Grid, Container, Typography, Collapse, Card, Stack } from '@mui/material';
 // components
 
+import userApi from '../utils/userApi';
+import PtApi from '../utils/PtApi';
+
+import scheduleApi from '../utils/scheduleApi';
 import Page from '../components/Page';
 import Iconify from '../components/Iconify';
 // sections
 import {
-  AppTasks,
-  AppNewsUpdate,
-  AppOrderTimeline,
-  AppCurrentVisits,
-  AppWebsiteVisits,
-  AppTrafficBySite,
-  AppWidgetSummary,
-  AppCurrentSubject,
-  AppConversionRates,
-  PTCard,
-  News,
+    AppTasks,
+    AppNewsUpdate,
+    AppOrderTimeline,
+    AppCurrentVisits,
+    AppWebsiteVisits,
+    AppTrafficBySite,
+    AppWidgetSummary,
+    AppCurrentSubject,
+    AppConversionRates,
+    PTCard,
+    News,
 } from '../sections/@dashboard/app';
 import Calendar from './Calendar'
+
+
+
+
 
 // ----------------------------------------------------------------------
 
 const POST_TITLES = [
-  '1 Đặng Nhật Kha',
-  '2 Đặng Nhật Kha',
-  '3 Đặng Nhật Kha thứ tư',
-  'Đặng Nhật Kha',
-  // 'Đặng Nhật Kha',
+    '1 Đặng Nhật Kha',
+    '2 Đặng Nhật Kha',
+    '3 Đặng Nhật Kha thứ tư',
+    'Đặng Nhật Kha',
+    // 'Đặng Nhật Kha',
 ];
 
 const posts = [...Array(1)].map((_, index) => ({
-  id: faker.datatype.uuid(),
-  cover: `/static/mock-images/covers/cover_${index + 1}.jpg`,
-  title: POST_TITLES[index],
-  createdAt: faker.date.past(),
-  view: faker.datatype.number(),
-  comment: faker.datatype.number(),
-  share: faker.datatype.number(),
-  favorite: faker.datatype.number(),
-  author: {
-    name: faker.name.findName(),
-    avatarUrl: `/static/mock-images/avatars/avatar_${index + 1}.jpg`,
-  },
+    id: faker.datatype.uuid(),
+    cover: `/static/mock-images/covers/cover_${index + 1}.jpg`,
+    title: POST_TITLES[index],
+    createdAt: faker.date.past(),
+    view: faker.datatype.number(),
+    comment: faker.datatype.number(),
+    share: faker.datatype.number(),
+    favorite: faker.datatype.number(),
+    author: {
+        name: faker.name.findName(),
+        avatarUrl: `/static/mock-images/avatars/avatar_${index + 1}.jpg`,
+    },
 }));
 const lessons = [
-  'Tập cơ bụng đứng',
-  'Tập bụng đứng không cần nằm',
-  'Cardio mông to đùi thon',
-  'Săn chắc cơ ngực tại nhà',
-  '5 bài tập bụng eo thon 6 múi',
-  'Tập cơ bụng đứng',
-  'Tập bụng đứng không cần nằm',
-  'Cardio mông to đùi thon',
-  'Săn chắc cơ ngực tại nhà',
-  '5 bài tập bụng eo thon 6 múi',
-  'Tập cơ bụng đứng',
-  'Tập bụng đứng không cần nằm',
-  'Cardio mông to đùi thon',
-  'Săn chắc cơ ngực tại nhà',
-  '5 bài tập bụng eo thon 6 múi',
-  'Tập cơ bụng đứng',
-  'Tập bụng đứng không cần nằm',
-  'Cardio mông to đùi thon',
-  'Săn chắc cơ ngực tại nhà',
-  '5 bài tập bụng eo thon 6 múi',
-  'Tập cơ bụng đứng',
-  'Tập bụng đứng không cần nằm',
-  'Cardio mông to đùi thon',
-  'Săn chắc cơ ngực tại nhà',
-  '5 bài tập bụng eo thon 6 múi',
-  'Tập cơ bụng đứng',
-  'Tập bụng đứng không cần nằm',
-  'Cardio mông to đùi thon',
-  'Săn chắc cơ ngực tại nhà',
-  '5 bài tập bụng eo thon 6 múi',
-  'Tập cơ bụng đứng',
-  'Tập bụng đứng không cần nằm',
-  'Cardio mông to đùi thon',
-  'Săn chắc cơ ngực tại nhà',
-  '5 bài tập bụng eo thon 6 múi',
-  'Tập cơ bụng đứng',
-  'Tập bụng đứng không cần nằm',
-  'Cardio mông to đùi thon',
-  'Săn chắc cơ ngực tại nhà',
-  '5 bài tập bụng eo thon 6 múi',
-
+    'Tập cơ bụng đứng',
+    'Tập bụng đứng không cần nằm',
+    'Cardio mông to đùi thon',
+    'Săn chắc cơ ngực tại nhà',
+    '5 bài tập bụng eo thon 6 múi',
+    'Tập cơ bụng đứng',
+    'Tập bụng đứng không cần nằm',
+    'Cardio mông to đùi thon',
+    'Săn chắc cơ ngực tại nhà',
+    '5 bài tập bụng eo thon 6 múi',
+    'Tập cơ bụng đứng',
+    'Tập bụng đứng không cần nằm',
+    'Cardio mông to đùi thon',
+    'Săn chắc cơ ngực tại nhà',
+    '5 bài tập bụng eo thon 6 múi',
+    'Tập cơ bụng đứng',
+    'Tập bụng đứng không cần nằm',
+    'Cardio mông to đùi thon',
+    'Săn chắc cơ ngực tại nhà',
+    '5 bài tập bụng eo thon 6 múi',
+    'Tập cơ bụng đứng',
+    'Tập bụng đứng không cần nằm',
+    'Cardio mông to đùi thon',
+    'Săn chắc cơ ngực tại nhà',
+    '5 bài tập bụng eo thon 6 múi',
+    'Tập cơ bụng đứng',
+    'Tập bụng đứng không cần nằm',
+    'Cardio mông to đùi thon',
+    'Săn chắc cơ ngực tại nhà',
+    '5 bài tập bụng eo thon 6 múi',
+    'Tập cơ bụng đứng',
+    'Tập bụng đứng không cần nằm',
+    'Cardio mông to đùi thon',
+    'Săn chắc cơ ngực tại nhà',
+    '5 bài tập bụng eo thon 6 múi',
+    'Tập cơ bụng đứng',
+    'Tập bụng đứng không cần nằm',
+    'Cardio mông to đùi thon',
+    'Săn chắc cơ ngực tại nhà',
+    '5 bài tập bụng eo thon 6 múi',
 ];
 
 export default function DashboardApp() {
+
+const userInfo = useSelector((state) => state?.auth?.userInfo);
+  // prototype
+  const [user, setUser] = useState();
+  const [pt, setPt] = useState();
+  const [userCalendar, setUserCalendar] = useState();
+
   const theme = useTheme();
+  // Call API to get user information
+  useEffect(() => {
+    const initData = async () => {
+      const tmp = await userApi.getUserId(userInfo.userId);
+      console.log(tmp.data);
+      setUser(tmp.data);
+
+      // Call API to get calendar
+      const calendar = await scheduleApi.getUserSchedule(userInfo.userId);
+      console.log(calendar.data);
+      setUserCalendar(calendar.data);
+
+      const PT = await PtApi.getPtByUserId(userInfo.userId);
+      setPt(PT.data.data);
+
+    };
+    initData();
+  }, []);
+
+  console.log(userCalendar);
+  console.log("PT:", pt);
 
   return (
     <Page title="Dashboard">
       <Container maxWidth="xl">
         <Typography variant="h4" sx={{ mb: 5 }}>
-          Hi Kiệt, Welcome back
+          Hi, Welcome back
         </Typography>
 
-        <Grid container justifyContent={'space-between'} spacing={3}>
-          {/* <Grid item xs={12} sm={6} md={4}>
+                <Grid container justifyContent={'space-between'} spacing={3}>
+                    {/* <Grid item xs={12} sm={6} md={4}>
             <AppWidgetSummary title="Slimfit | Yoga" total={'Đặng Nhật Kha'} icon={'ant-design:android-filled'} />
           </Grid> */}
-          {/* Thử xài Blog CardContent */}
-          {/* <Stack > */}
-          {/* <Grid container xs={12} sm={6} md={3}> */}
-          {/* <Grid item xs={12} sm={6} md={3} >
+                    {/* Thử xài Blog CardContent */}
+                    {/* <Stack > */}
+                    {/* <Grid container xs={12} sm={6} md={3}> */}
+                    {/* <Grid item xs={12} sm={6} md={3} >
                 <Card sx={{ position: 'relative' }}> */}
 
+                    {posts.map((post, index) => (
+                        <PTCard key={post.id} post={post} index={index} />
+                    ))}
 
-          {posts.map((post, index) => (
-            <PTCard key={post.id} post={post} index={index} />
-          ))}
-
-          {posts.map((post, index) => (
-            <News key={post.id} post={post} index={index} />
-          ))}
-          {/* </Card>
+                    {posts.map((post, index) => (
+                        <News key={post.id} post={post} index={index} />
+                    ))}
+                    {/* </Card>
               </Grid> */}
-          {/* </Grid> */}
+                    {/* </Grid> */}
 
-
-
-          {/* <Grid container spacing={3}>
+                    {/* <Grid container spacing={3}>
               {posts.map((post, index) => (
                 <PTCard key={post.id} post={post} index={index} />
               ))}
             </Grid> */}
-          {/* </Stack> */}
+                    {/* </Stack> */}
 
-
-          {/* <PTCard key={1} post={[{}]} index={1} /> */}
-          {/* <Grid item xs={12} sm={6} md={3}>
+                    {/* <PTCard key={1} post={[{}]} index={1} /> */}
+                    {/* <Grid item xs={12} sm={6} md={3}>
             <AppWidgetSummary title="New Users" total={1352831} color="info" icon={'ant-design:apple-filled'} />
           </Grid> */}
 
-          {/* <Grid item xs={12} sm={6} md={3}>
+                    {/* <Grid item xs={12} sm={6} md={3}>
             <AppWidgetSummary title="Item Orders" total={1723315} color="warning" icon={'ant-design:windows-filled'} />
           </Grid> */}
 
-          {/* <Grid item xs={12} sm={6} md={3}>
+                    {/* <Grid item xs={12} sm={6} md={3}>
             <AppWidgetSummary title="Bug Reports" total={234} color="error" icon={'ant-design:bug-filled'} />
           </Grid> */}
 
-          {/* <Grid item xs={12} md={6} lg={8}>
+                    {/* <Grid item xs={12} md={6} lg={8}>
             <AppWebsiteVisits
               title="Website Visits"
               subheader="(+43%) than last year"
@@ -185,7 +219,7 @@ export default function DashboardApp() {
             />
           </Grid> */}
 
-          {/* <Grid item xs={12} md={6} lg={4}>
+                    {/* <Grid item xs={12} md={6} lg={4}>
             <AppCurrentVisits
               title="Current Visits"
               chartData={[
@@ -203,7 +237,7 @@ export default function DashboardApp() {
             />
           </Grid> */}
 
-          {/* <Grid item xs={12} md={6} lg={8}>
+                    {/* <Grid item xs={12} md={6} lg={8}>
             <AppConversionRates
               title="Conversion Rates"
               subheader="(+43%) than last year"
@@ -222,7 +256,7 @@ export default function DashboardApp() {
             />
           </Grid> */}
 
-          {/* <Grid item xs={12} md={6} lg={4}>
+                    {/* <Grid item xs={12} md={6} lg={4}>
             <AppCurrentSubject
               title="Current Subject"
               chartLabels={['English', 'History', 'Physics', 'Geography', 'Chinese', 'Math']}
@@ -235,7 +269,7 @@ export default function DashboardApp() {
             />
           </Grid> */}
 
-          {/* <Grid item xs={12} md={6} lg={8}>
+                    {/* <Grid item xs={12} md={6} lg={8}>
             <AppNewsUpdate
               title="News Update"
               list={[...Array(5)].map((_, index) => ({
@@ -247,64 +281,62 @@ export default function DashboardApp() {
               }))}
             />
           </Grid> */}
-          <Calendar  />
+          {userCalendar && pt && <Calendar index={userCalendar} linkMeet={pt.linkMeet}/>}
 
-          <Grid item xs={12} md={12} lg={12}>
+                    <Grid item xs={12} md={12} lg={12}>
+                        <AppOrderTimeline
+                            title="Agenda"
+                            list={[...Array(10)].map((_, index) => ({
+                                id: faker.datatype.uuid(),
+                                title: [
+                                    'Tập cơ bụng đứng',
+                                    'Tập bụng đứng không cần nằm',
+                                    'Cardio mông to đùi thon',
+                                    'Săn chắc cơ ngực tại nhà',
+                                    '5 bài tập bụng eo thon 6 múi',
+                                    'Tập cơ bụng đứng',
+                                    'Tập bụng đứng không cần nằm',
+                                    'Cardio mông to đùi thon',
+                                    'Săn chắc cơ ngực tại nhà',
+                                    '5 bài tập bụng eo thon 6 múi',
+                                    'Tập cơ bụng đứng',
+                                    'Tập bụng đứng không cần nằm',
+                                    'Cardio mông to đùi thon',
+                                    'Săn chắc cơ ngực tại nhà',
+                                    '5 bài tập bụng eo thon 6 múi',
+                                    'Tập cơ bụng đứng',
+                                    'Tập bụng đứng không cần nằm',
+                                    'Cardio mông to đùi thon',
+                                    'Săn chắc cơ ngực tại nhà',
+                                    '5 bài tập bụng eo thon 6 múi',
+                                    'Tập cơ bụng đứng',
+                                    'Tập bụng đứng không cần nằm',
+                                    'Cardio mông to đùi thon',
+                                    'Săn chắc cơ ngực tại nhà',
+                                    '5 bài tập bụng eo thon 6 múi',
+                                    'Tập cơ bụng đứng',
+                                    'Tập bụng đứng không cần nằm',
+                                    'Cardio mông to đùi thon',
+                                    'Săn chắc cơ ngực tại nhà',
+                                    '5 bài tập bụng eo thon 6 múi',
+                                    'Tập cơ bụng đứng',
+                                    'Tập bụng đứng không cần nằm',
+                                    'Cardio mông to đùi thon',
+                                    'Săn chắc cơ ngực tại nhà',
+                                    '5 bài tập bụng eo thon 6 múi',
+                                    'Tập cơ bụng đứng',
+                                    'Tập bụng đứng không cần nằm',
+                                    'Cardio mông to đùi thon',
+                                    'Săn chắc cơ ngực tại nhà',
+                                    '5 bài tập bụng eo thon 6 múi',
+                                ][index],
+                                type: `order${index + 1}`,
+                                time: faker.date.past(),
+                            }))}
+                        />
+                    </Grid>
 
-            <AppOrderTimeline
-              title="Agenda"
-              list={[...Array(10)].map((_, index) => ({
-                id: faker.datatype.uuid(),
-                title: [
-                  'Tập cơ bụng đứng',
-                  'Tập bụng đứng không cần nằm',
-                  'Cardio mông to đùi thon',
-                  'Săn chắc cơ ngực tại nhà',
-                  '5 bài tập bụng eo thon 6 múi',
-                  'Tập cơ bụng đứng',
-                  'Tập bụng đứng không cần nằm',
-                  'Cardio mông to đùi thon',
-                  'Săn chắc cơ ngực tại nhà',
-                  '5 bài tập bụng eo thon 6 múi',
-                  'Tập cơ bụng đứng',
-                  'Tập bụng đứng không cần nằm',
-                  'Cardio mông to đùi thon',
-                  'Săn chắc cơ ngực tại nhà',
-                  '5 bài tập bụng eo thon 6 múi',
-                  'Tập cơ bụng đứng',
-                  'Tập bụng đứng không cần nằm',
-                  'Cardio mông to đùi thon',
-                  'Săn chắc cơ ngực tại nhà',
-                  '5 bài tập bụng eo thon 6 múi',
-                  'Tập cơ bụng đứng',
-                  'Tập bụng đứng không cần nằm',
-                  'Cardio mông to đùi thon',
-                  'Săn chắc cơ ngực tại nhà',
-                  '5 bài tập bụng eo thon 6 múi',
-                  'Tập cơ bụng đứng',
-                  'Tập bụng đứng không cần nằm',
-                  'Cardio mông to đùi thon',
-                  'Săn chắc cơ ngực tại nhà',
-                  '5 bài tập bụng eo thon 6 múi',
-                  'Tập cơ bụng đứng',
-                  'Tập bụng đứng không cần nằm',
-                  'Cardio mông to đùi thon',
-                  'Săn chắc cơ ngực tại nhà',
-                  '5 bài tập bụng eo thon 6 múi',
-                  'Tập cơ bụng đứng',
-                  'Tập bụng đứng không cần nằm',
-                  'Cardio mông to đùi thon',
-                  'Săn chắc cơ ngực tại nhà',
-                  '5 bài tập bụng eo thon 6 múi',
-
-                ][index],
-                type: `order${index + 1}`,
-                time: faker.date.past(),
-              }))}
-            />
-          </Grid>
-
-          {/* <Grid item xs={12} md={6} lg={4}>
+                    {/* <Grid item xs={12} md={6} lg={4}>
             <AppTrafficBySite
               title="Traffic by Site"
               list={[
@@ -332,7 +364,7 @@ export default function DashboardApp() {
             />
           </Grid> */}
 
-          {/* <Grid item xs={12} md={6} lg={8}>
+                    {/* <Grid item xs={12} md={6} lg={8}>
             <AppTasks
               title="Tasks"
               list={[
@@ -344,8 +376,8 @@ export default function DashboardApp() {
               ]}
             />
           </Grid> */}
-        </Grid>
-      </Container >
-    </Page >
-  );
+                </Grid>
+            </Container>
+        </Page>
+    );
 }

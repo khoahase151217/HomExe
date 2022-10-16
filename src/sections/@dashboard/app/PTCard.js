@@ -69,11 +69,13 @@ export default function PTCard({ post, index }) {
 
     return (
         // <Grid item xs={12} sm={6} md={3}>
-        <Card sx={{
-            position: 'relative',
-            marginTop: '20px',
-            // width: '2px',
-        }}>
+        <Card
+            sx={{
+                position: 'relative',
+                marginTop: '20px',
+                // width: '2px',
+            }}
+        >
             <CardMediaStyle
                 sx={{
                     // ...((latestPostLarge) && {
@@ -135,24 +137,26 @@ export default function PTCard({ post, index }) {
                     // }),
                 }}
             >
-
-
                 <TitleStyle
-                    to="#"
+                    to="/ptdetails"
                     color="inherit"
                     variant="h6"
                     underline="hover"
                     component={RouterLink}
-                // sx={{
-                //     ...(latestPostLarge && { typography: 'h5', height: 60 }),
-                //     ...((latestPostLarge) && {
-                //         color: 'common.white',
-                //     }),
-                // }}
+                    // sx={{
+                    //     ...(latestPostLarge && { typography: 'h5', height: 60 }),
+                    //     ...((latestPostLarge) && {
+                    //         color: 'common.white',
+                    //     }),
+                    // }}
                 >
                     {title}
                 </TitleStyle>
-                <Typography gutterBottom variant="caption" sx={{ color: 'text.disabled', display: 'block' }}>
+                <Typography
+                    gutterBottom
+                    variant="caption"
+                    sx={{ color: 'text.disabled', display: 'block' }}
+                >
                     {'Gym | Yoga'}
                 </Typography>
                 <InfoStyle>

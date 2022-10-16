@@ -13,6 +13,7 @@ import {
     Divider,
     Stack,
 } from '@mui/material';
+
 import { useSelector } from 'react-redux';
 import userApi from '../utils/userApi';
 // hooks
@@ -71,6 +72,7 @@ const ContentStyle = styled('div')(({ theme }) => ({
 // ----------------------------------------------------------------------
 
 export default function PersonalPage() {
+
     const [user, setUser] = useState([]);
     const smUp = useResponsive('up', 'sm');
 
@@ -101,7 +103,7 @@ export default function PersonalPage() {
 
                 <SectionStyle>
                     <Typography variant="h3" sx={{ px: 5, mt: 10, mb: 5 }}>
-                        {user.fullName}
+                        {userInfo.fullName}
                     </Typography>
                     <img src="/static/illustrations/illustration_login.png" alt="login" />
                 </SectionStyle>
@@ -137,9 +139,11 @@ export default function PersonalPage() {
                             <Typography variant="h6" gutterBottom sx={{ mt: 1 }}>
                                 Age
                             </Typography>
+
                             <Typography sx={{ color: 'text.secondary', mb: 1 }}>
                                 {user.age ? user.age : 20}
                             </Typography>
+
                         </Card>
                         <Card sx={{ px: 5, mb: 1, width: '25vw', float: 'left' }}>
                             <Typography variant="h6" gutterBottom sx={{ mt: 1 }}>
@@ -158,12 +162,15 @@ export default function PersonalPage() {
                             </Typography>
                         </Card>
 
+
                         <Card sx={{ px: 5, mb: 1, width: '25vw', float: 'left' }}>
                             <Typography variant="h6" gutterBottom sx={{ mt: 1 }}>
                                 Phone
                             </Typography>
                             <Typography sx={{ color: 'text.secondary', mb: 1 }}>
-                                {user.phone}
+
+                                {user?.phone}
+
                             </Typography>
                         </Card>
                         <Card sx={{ px: 5, mb: 1, width: '25vw', float: 'left' }}>
@@ -191,6 +198,7 @@ export default function PersonalPage() {
                         </Card>
 
                         {/* <AuthSocial /> */}
+
 
                         {/* <LoginForm /> */}
                         {/* <Grid item xs={12} md={6} lg={8}>
