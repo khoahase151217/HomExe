@@ -1,6 +1,6 @@
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useParams } from 'react-router-dom';
 // Call API
-import { useEffect, useState } from 'react';
+import { useEffect, useReducer, useState } from 'react';
 import PtApi from '../utils/PtApi';
 // @mui
 import { styled } from '@mui/material/styles';
@@ -21,6 +21,10 @@ import {
     ListItem,
     ListItemIcon,
     Avatar,
+    FormControl,
+    InputLabel,
+    Select,
+    MenuItem,
 } from '@mui/material';
 // import AddIcon from '@mui/icons-material/Add';
 // import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium';
@@ -36,6 +40,8 @@ import Logo from '../components/Logo';
 // sections
 import { LoginForm } from '../sections/auth/login';
 import AuthSocial from '../sections/auth/AuthSocial';
+import { useDispatch } from 'react-redux';
+import { setPayment } from 'src/app/rootReducer';
 // ----------------------------------------------------------------------
 
 const RootStyle = styled('div')(({ theme }) => ({
@@ -82,16 +88,59 @@ const ContentStyle = styled('div')(({ theme }) => ({
 // ----------------------------------------------------------------------
 
 export default function PTDetails() {
+    const [schedule, setSchedule] = useState('7.00 - 9.30 Mon, Thu');
+    const { id } = useParams();
+    const dispatch = useDispatch();
+
+    // const schedules = [
+    //     ['7.00 - 9.30 Mon, Thu',
+    //     ['9.30 - 11.00 Mon, Thu',
+    //     ['14.00 - 15.30 Mon, Thu',
+    //     ['15.30 - 17.00 Mon, Thu', 3],
+    //     ['7.00 - 9.30 Tue, Fri', 4],
+    //     ['9.30 - 11.00 Tue, Fri', 5],
+    //     ['14.00 - 15.30 Tue, Fri', 6],
+    //     ['15.30 - 17.00 Tue, Fri', 7],
+    //     ['7.00 - 9.30 Wed, Sat', 8],
+    //     ['9.30 - 11.00 Wed, Sat', 9],
+    //     ['14.00 - 15.30 Wed, Sat', 10],
+    //     ['15.30 - 17.00 Wed, Sat', 11],
+    // ];
+    const schedules = [
+        '7.00 - 9.30 Mon, Thu',
+        '9.30 - 11.00 Mon, Thu',
+        '14.00 - 15.30 Mon, Thu',
+        '15.30 - 17.00 Mon, Thu',
+        '7.00 - 9.30 Tue, Fri',
+        '9.30 - 11.00 Tue, Fri',
+        '14.00 - 15.30 Tue, Fri',
+        '15.30 - 17.00 Tue, Fri',
+        '7.00 - 9.30 Wed, Sat',
+        '9.30 - 11.00 Wed, Sat',
+        '14.00 - 15.30 Wed, Sat',
+        '15.30 - 17.00 Wed, Sat',
+    ];
+
     const smUp = useResponsive('up', 'sm');
 
     const mdUp = useResponsive('up', 'md');
     const [PT, setPT] = useState();
+    const handleChangeSchedule = (event) => {
+        dispatch(
+            setPayment({
+                ptId: id,
+                schedule: schedules.indexOf(event.target.value),
+            })
+        );
 
+        setSchedule(event.target.value);
+    };
+
+    const handleSubmit = (event) => {};
     // Call API to get PT information
     useEffect(() => {
         const initData = async () => {
-            const tmp = await PtApi.getPtById('1');
-            console.log(tmp);
+            const tmp = await PtApi.getPtById(id);
             setPT(tmp.data.data);
         };
         initData();
@@ -105,7 +154,7 @@ export default function PTDetails() {
 
                     {smUp && (
                         <Typography variant="body2" sx={{ mt: { md: -2 } }}>
-                            <Link variant="subtitle2" component={RouterLink} to="/register">
+                            <Link variant="subtitle2" component={RouterLink} to="/product">
                                 Go back
                             </Link>
                         </Typography>
@@ -177,10 +226,18 @@ export default function PTDetails() {
                             }}
                         >
                             <PTRating />
-                            <Fab variant="extended" color="primary" aria-label="add">
-                                {/* <AddIcon sx={{ mr: 1 }} /> */}
-                                Connect
-                            </Fab>
+                            <RouterLink to="/payment">
+                                <Button
+                                    type="submit"
+                                    variant="extended"
+                                    color="primary"
+                                    aria-label="add"
+                                    onClick={handleSubmit}
+                                >
+                                    {/* <AddIcon sx={{ mr: 1 }} /> */}
+                                    Connect
+                                </Button>
+                            </RouterLink>
                         </Box>
 
                         <Typography variant="h4" gutterBottom>
@@ -206,6 +263,25 @@ export default function PTDetails() {
                             <Typography variant="h6" gutterBottom>
                                 Schedule
                             </Typography>
+                            <Box>
+                                <FormControl>
+                                    <InputLabel id="select-month">Type of schedule</InputLabel>
+                                    <Select
+                                        labelId="select-month"
+                                        id="demo-simple-select"
+                                        value={schedule}
+                                        label="Schedule"
+                                        onChange={handleChangeSchedule}
+                                        width={'400px'}
+                                    >
+                                        {schedules.map((schedule, idx) => (
+                                            <MenuItem key={idx} value={schedule}>
+                                                {schedule}
+                                            </MenuItem>
+                                        ))}
+                                    </Select>
+                                </FormControl>
+                            </Box>
 
                             <Box>
                                 <Typography variant="h6" gutterBottom>
