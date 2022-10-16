@@ -85,7 +85,7 @@ function OrderItem({ item, isLast }) {
         {isLast ? null : <TimelineConnector />}
       </TimelineSeparator>
 
-      <Accordion>
+      {/* <Accordion>
         <AccordionSummary
 
           aria-controls="panel1a-content"
@@ -97,7 +97,7 @@ function OrderItem({ item, isLast }) {
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Grid container sx={{ m: 3 }}>
+          <Grid container sx={{ m: 3 }}> */}
 
 
             <Accordion>

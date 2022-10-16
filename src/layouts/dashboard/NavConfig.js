@@ -42,21 +42,6 @@ const navConfig = [
         path: '/register',
         icon: getIcon('eva:person-add-fill'),
     },
-    {
-        title: 'Not found',
-        path: '/404',
-        icon: getIcon('eva:alert-triangle-fill'),
-    },
-    {
-        title: 'PT Detail',
-        path: '/ptdetails',
-        icon: getIcon('eva:lock-fill'),
-    },
-    {
-        title: 'Payment',
-        path: '/payment',
-        icon: getIcon('eva:lock-fill'),
-    },
 ];
 
 export default navConfig;

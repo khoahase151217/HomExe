@@ -90,6 +90,8 @@ const ContentStyle = styled('div')(({ theme }) => ({
 export default function PTDetails() {
     const [schedule, setSchedule] = useState('7.00 - 9.30 Mon, Thu');
     const { id } = useParams();
+    
+    
     const dispatch = useDispatch();
 
     // const schedules = [
@@ -182,7 +184,7 @@ export default function PTDetails() {
                                 spacing={2}
                             >
                                 <Avatar
-                                    src="/static/mock-images/big_avatars/big_avatar1.jpeg"
+                                    src={PT ? PT.cover : `static/mock-images/big_avatars/big_avatar1.jpeg`}
                                     alt="avatar"
                                     variant="rounded"
                                     sx={{

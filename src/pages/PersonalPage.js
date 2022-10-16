@@ -141,7 +141,7 @@ export default function PersonalPage() {
                             </Typography>
 
                             <Typography sx={{ color: 'text.secondary', mb: 1 }}>
-                                {user.age ? user.age : 20}
+                                {userInfo.age ? userInfo.age : 20}
                             </Typography>
 
                         </Card>
@@ -150,7 +150,7 @@ export default function PersonalPage() {
                                 Gender
                             </Typography>
                             <Typography sx={{ color: 'text.secondary', mb: 1 }}>
-                                {user.gender ? user.gender : 'Female'}
+                                {userInfo.gender ? userInfo.gender : 'Female'}
                             </Typography>
                         </Card>
                         <Card sx={{ px: 5, mb: 1, width: '25vw', float: 'left' }}>
@@ -158,7 +158,7 @@ export default function PersonalPage() {
                                 Email
                             </Typography>
                             <Typography sx={{ color: 'text.secondary', mb: 1 }}>
-                                {user.email}
+                                {userInfo.email}
                             </Typography>
                         </Card>
 
@@ -169,7 +169,7 @@ export default function PersonalPage() {
                             </Typography>
                             <Typography sx={{ color: 'text.secondary', mb: 1 }}>
 
-                                {user?.phone}
+                                {userInfo?.phone}
 
                             </Typography>
                         </Card>
@@ -178,24 +178,17 @@ export default function PersonalPage() {
                                 Height
                             </Typography>
                             <Typography sx={{ color: 'text.secondary', mb: 1 }}>
-                                {user.height}
+                                {userInfo.height}
                             </Typography>
                             <Typography variant="h6" gutterBottom sx={{ mt: 1 }}>
                                 Weight
                             </Typography>
                             <Typography sx={{ color: 'text.secondary', mb: 1 }}>
-                                {user.weight}
+                                {userInfo.weight}
                             </Typography>
                         </Card>
 
-                        <Card sx={{ px: 5, mb: 1, width: '25vw', float: 'left' }}>
-                            <Typography variant="h6" gutterBottom sx={{ mt: 1 }}>
-                                Email
-                            </Typography>
-                            <Typography sx={{ color: 'text.secondary', mb: 1 }}>
-                                {user.email}
-                            </Typography>
-                        </Card>
+                        
 
                         {/* <AuthSocial /> */}
 

@@ -7,6 +7,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import React, { useEffect, useReducer, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import contractApi from 'src/utils/contractApi';
 import PtApi from 'src/utils/PtApi';
 import userApi from 'src/utils/userApi';
@@ -165,9 +166,10 @@ export default function PaymentForm() {
                     shrink: true,
                 }}
             />
+            <Link to='/dashboard/app'>
             <Button type="submit" variant="contained" color="primary" fullWidth>
                 I have completed the payment
-            </Button>
+            </Button></Link>
         </form>
     );
 }
