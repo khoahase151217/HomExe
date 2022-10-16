@@ -79,7 +79,11 @@ function OrderItem({ item, isLast }) {
 
       <Accordion>
         <AccordionSummary
+<<<<<<< HEAD
           // expandIcon={<ExpandMoreIcon />}
+=======
+          // expandIcon={}
+>>>>>>> da9c399c43c8453da0cc993eab1af09f76ae35eb
           aria-controls="panel1a-content"
           id="panel1a-header"
         >
