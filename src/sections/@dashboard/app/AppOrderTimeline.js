@@ -68,21 +68,37 @@ OrderItem.propTypes = {
 };
 
 function OrderItem({ item, isLast }) {
-    const { type, title, time } = item;
-    return (
-        <TimelineItem>
-            <TimelineSeparator>
-                <TimelineDot
-                    color={
-                        (type === 'order1' && 'primary') ||
-                        (type === 'order2' && 'success') ||
-                        (type === 'order3' && 'info') ||
-                        (type === 'order4' && 'warning') ||
-                        'error'
-                    }
-                />
-                {isLast ? null : <TimelineConnector />}
-            </TimelineSeparator>
+
+  const { type, title, time } = item;
+  return (
+    <TimelineItem>
+      <TimelineSeparator>
+        <TimelineDot
+          color={
+            (type === 'order1' && 'primary') ||
+            (type === 'order2' && 'success') ||
+            (type === 'order3' && 'info') ||
+            (type === 'order4' && 'warning') ||
+            'error'
+          }
+        />
+        {isLast ? null : <TimelineConnector />}
+      </TimelineSeparator>
+
+      <Accordion>
+        <AccordionSummary
+
+          aria-controls="panel1a-content"
+          id="panel1a-header"
+        >
+          <Typography variant="h4">{title}</Typography>
+          <Typography variant="caption" sx={{ color: 'text.secondary', mt:1.5 , mx:3 }}>
+            {fDateTime(time)}
+          </Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Grid container sx={{ m: 3 }}>
+
 
             <Accordion>
                 <AccordionSummary

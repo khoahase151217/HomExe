@@ -1,4 +1,5 @@
 import { Link as RouterLink } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 // @mui
 import { styled } from '@mui/material/styles';
 import {
@@ -12,7 +13,11 @@ import {
     Divider,
     Stack,
 } from '@mui/material';
+
+import { useSelector } from 'react-redux';
+import userApi from '../utils/userApi';
 // hooks
+
 import useResponsive from '../hooks/useResponsive';
 // components
 import Page from '../components/Page';
@@ -21,7 +26,6 @@ import Logo from '../components/Logo';
 import { LoginForm } from '../sections/auth/login';
 import AuthSocial from '../sections/auth/AuthSocial';
 import { AppTasks } from '../sections/@dashboard/app';
-import { useSelector } from 'react-redux';
 // ----------------------------------------------------------------------
 
 const RootStyle = styled('div')(({ theme }) => ({
@@ -68,9 +72,22 @@ const ContentStyle = styled('div')(({ theme }) => ({
 // ----------------------------------------------------------------------
 
 export default function PersonalPage() {
+
+    const [user, setUser] = useState([]);
     const smUp = useResponsive('up', 'sm');
+
     const mdUp = useResponsive('up', 'md');
-    const userInfo = useSelector((state) => state?.auth?.userInfo);
+    const userInfo = useSelector((state)=> state.auth.userInfo)
+    console.log(userInfo);
+    useEffect(() => {
+        const initData = async () => {
+            const tmp = await userApi.getUserId(userInfo.id).then((res) => res.data);
+            console.log(tmp.data);
+            setUser(tmp.data);
+        };
+        initData();
+    }, []);
+
     return (
         <Page title="Login">
             <RootStyle>
@@ -122,41 +139,67 @@ export default function PersonalPage() {
                             <Typography variant="h6" gutterBottom sx={{ mt: 1 }}>
                                 Age
                             </Typography>
-                            <Typography sx={{ color: 'text.secondary', mb: 1 }}>24</Typography>
+
+                            <Typography sx={{ color: 'text.secondary', mb: 1 }}>
+                                {user.age ? user.age : 20}
+                            </Typography>
+
                         </Card>
                         <Card sx={{ px: 5, mb: 1, width: '25vw', float: 'left' }}>
                             <Typography variant="h6" gutterBottom sx={{ mt: 1 }}>
                                 Gender
                             </Typography>
-                            <Typography sx={{ color: 'text.secondary', mb: 1 }}>Female</Typography>
+                            <Typography sx={{ color: 'text.secondary', mb: 1 }}>
+                                {user.gender ? user.gender : 'Female'}
+                            </Typography>
                         </Card>
                         <Card sx={{ px: 5, mb: 1, width: '25vw', float: 'left' }}>
                             <Typography variant="h6" gutterBottom sx={{ mt: 1 }}>
-                                Email Address
+                                Email
                             </Typography>
                             <Typography sx={{ color: 'text.secondary', mb: 1 }}>
-                                thuongle@gmail.com
+                                {user.email}
                             </Typography>
                         </Card>
+
+
                         <Card sx={{ px: 5, mb: 1, width: '25vw', float: 'left' }}>
                             <Typography variant="h6" gutterBottom sx={{ mt: 1 }}>
                                 Phone
                             </Typography>
                             <Typography sx={{ color: 'text.secondary', mb: 1 }}>
-                                0339645857
+
+                                {user?.phone}
+
                             </Typography>
                         </Card>
                         <Card sx={{ px: 5, mb: 1, width: '25vw', float: 'left' }}>
                             <Typography variant="h6" gutterBottom sx={{ mt: 1 }}>
                                 Height
                             </Typography>
-                            <Typography sx={{ color: 'text.secondary', mb: 1 }}>173</Typography>
+                            <Typography sx={{ color: 'text.secondary', mb: 1 }}>
+                                {user.height}
+                            </Typography>
                             <Typography variant="h6" gutterBottom sx={{ mt: 1 }}>
                                 Weight
                             </Typography>
-                            <Typography sx={{ color: 'text.secondary', mb: 1 }}>53</Typography>
+                            <Typography sx={{ color: 'text.secondary', mb: 1 }}>
+                                {user.weight}
+                            </Typography>
                         </Card>
-                        8{/* <AuthSocial /> */}
+
+                        <Card sx={{ px: 5, mb: 1, width: '25vw', float: 'left' }}>
+                            <Typography variant="h6" gutterBottom sx={{ mt: 1 }}>
+                                Email
+                            </Typography>
+                            <Typography sx={{ color: 'text.secondary', mb: 1 }}>
+                                {user.email}
+                            </Typography>
+                        </Card>
+
+                        {/* <AuthSocial /> */}
+
+
                         {/* <LoginForm /> */}
                         {/* <Grid item xs={12} md={6} lg={8}>
             <AppTasks
@@ -170,6 +213,7 @@ export default function PersonalPage() {
               ]}
             />
           </Grid> */}
+
                         {!smUp && (
                             <Typography variant="body2" align="center" sx={{ mt: 3 }}>
                                 Don’t have an account?{' '}
