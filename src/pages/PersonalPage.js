@@ -1,8 +1,22 @@
 import { Link as RouterLink } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 // @mui
 import { styled } from '@mui/material/styles';
-import { Card, Link, Container, Typography, Grid, Box, Avatar, Divider, Stack } from '@mui/material';
+import {
+    Card,
+    Link,
+    Container,
+    Typography,
+    Grid,
+    Box,
+    Avatar,
+    Divider,
+    Stack,
+} from '@mui/material';
+import { useSelector } from 'react-redux';
+import userApi from '../utils/userApi';
 // hooks
+
 import useResponsive from '../hooks/useResponsive';
 // components
 import Page from '../components/Page';
@@ -10,82 +24,88 @@ import Logo from '../components/Logo';
 // sections
 import { LoginForm } from '../sections/auth/login';
 import AuthSocial from '../sections/auth/AuthSocial';
-import {
-  AppTasks
-} from '../sections/@dashboard/app';
+import { AppTasks } from '../sections/@dashboard/app';
 // ----------------------------------------------------------------------
 
 const RootStyle = styled('div')(({ theme }) => ({
-  [theme.breakpoints.up('md')]: {
-    display: 'flex',
-  },
+    [theme.breakpoints.up('md')]: {
+        display: 'flex',
+    },
 }));
 
 const HeaderStyle = styled('header')(({ theme }) => ({
-  top: 0,
-  zIndex: 9,
-  lineHeight: 0,
-  width: '100%',
-  display: 'flex',
-  alignItems: 'center',
-  position: 'absolute',
-  padding: theme.spacing(3),
-  justifyContent: 'space-between',
-  [theme.breakpoints.up('md')]: {
-    alignItems: 'flex-start',
-    padding: theme.spacing(7, 5, 0, 7),
-  },
+    top: 0,
+    zIndex: 9,
+    lineHeight: 0,
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    position: 'absolute',
+    padding: theme.spacing(3),
+    justifyContent: 'space-between',
+    [theme.breakpoints.up('md')]: {
+        alignItems: 'flex-start',
+        padding: theme.spacing(7, 5, 0, 7),
+    },
 }));
 
 const SectionStyle = styled(Card)(({ theme }) => ({
-  width: '100%',
-  maxWidth: 464,
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'center',
-  margin: theme.spacing(2, 0, 2, 2),
+    width: '100%',
+    maxWidth: 464,
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    margin: theme.spacing(2, 0, 2, 2),
 }));
 
 const ContentStyle = styled('div')(({ theme }) => ({
-  maxWidth: 480,
-  margin: 'auto',
-  minHeight: '100vh',
-  display: 'flex',
-  justifyContent: 'center',
-  flexDirection: 'column',
-  padding: theme.spacing(12, 0),
+    maxWidth: 480,
+    margin: 'auto',
+    minHeight: '100vh',
+    display: 'flex',
+    justifyContent: 'center',
+    flexDirection: 'column',
+    padding: theme.spacing(12, 0),
 }));
 
 // ----------------------------------------------------------------------
 
 export default function PersonalPage() {
-  const smUp = useResponsive('up', 'sm');
+    const [user, setUser] = useState([]);
+    const smUp = useResponsive('up', 'sm');
 
-  const mdUp = useResponsive('up', 'md');
+    const mdUp = useResponsive('up', 'md');
+    const userInfo = useSelector((state)=> state.auth.userInfo)
+    console.log(userInfo);
+    useEffect(() => {
+        const initData = async () => {
+            const tmp = await userApi.getUserId(userInfo.id).then((res) => res.data);
+            console.log(tmp.data);
+            setUser(tmp.data);
+        };
+        initData();
+    }, []);
 
-  return (
-    <Page title="Login">
-      <RootStyle>
-
-        <HeaderStyle>
-          <Logo />
-          {/* <Typography variant="body2" sx={{ mt: { md: -2 } }}>
+    return (
+        <Page title="Login">
+            <RootStyle>
+                <HeaderStyle>
+                    <Logo />
+                    {/* <Typography variant="body2" sx={{ mt: { md: -2 } }}>
             Don’t have an account? {''}
             <Link variant="subtitle2" component={RouterLink} to="/register">
               Get started
             </Link>
           </Typography> */}
+                </HeaderStyle>
 
-        </HeaderStyle>
-
-
-        <SectionStyle>
-          <Typography variant="h3" sx={{ px: 5, mt: 10, mb: 5 }}>
-            Trang Le
-          </Typography>
-          <img src="/static/illustrations/illustration_login.png" alt="login" />
-        </SectionStyle>
-        {/* <SectionStyle>
+                <SectionStyle>
+                    <Typography variant="h3" sx={{ px: 5, mt: 10, mb: 5 }}>
+                        {user.fullName}
+                    </Typography>
+                    <img src="/static/illustrations/illustration_login.png" alt="login" />
+                </SectionStyle>
+                {/* <SectionStyle>
 
      
            
@@ -108,53 +128,72 @@ export default function PersonalPage() {
    
            </SectionStyle> */}
 
-        <Container maxWidth="sm">
-          <ContentStyle sc={{ display: 'flex' }}>
-            <Card variant="h3" sx={{ px: 5, mt: 1, mb: 1, width: '25vw', display: "inline-block" }}>
-              <Typography variant="h6" gutterBottom sx={{ mt: 1 }}>
-                Age
-              </Typography>
-              <Typography sx={{ color: 'text.secondary', mb: 1 }}>24</Typography>
-            </Card>
-            <Card sx={{ px: 5, mb: 1, width: '25vw', float: 'left' }}>
-              <Typography variant="h6" gutterBottom sx={{ mt: 1 }} >
-                Gender
-              </Typography>
-              <Typography sx={{ color: 'text.secondary', mb: 1 }}>Female</Typography>
-            </Card>
-            <Card  sx={{ px: 5, mb: 1, width: '25vw', float: 'left' }}>
-              <Typography variant="h6" gutterBottom sx={{ mt: 1 }}>
-                Email Address
-              </Typography>
-              <Typography sx={{ color: 'text.secondary', mb: 1 }}>thuongle@gmail.com</Typography>
-            </Card>
+                <Container maxWidth="sm">
+                    <ContentStyle sc={{ display: 'flex' }}>
+                        <Card
+                            variant="h3"
+                            sx={{ px: 5, mt: 1, mb: 1, width: '25vw', display: 'inline-block' }}
+                        >
+                            <Typography variant="h6" gutterBottom sx={{ mt: 1 }}>
+                                Age
+                            </Typography>
+                            <Typography sx={{ color: 'text.secondary', mb: 1 }}>
+                                {user.age ? user.age : 20}
+                            </Typography>
+                        </Card>
+                        <Card sx={{ px: 5, mb: 1, width: '25vw', float: 'left' }}>
+                            <Typography variant="h6" gutterBottom sx={{ mt: 1 }}>
+                                Gender
+                            </Typography>
+                            <Typography sx={{ color: 'text.secondary', mb: 1 }}>
+                                {user.gender ? user.gender : 'Female'}
+                            </Typography>
+                        </Card>
+                        <Card sx={{ px: 5, mb: 1, width: '25vw', float: 'left' }}>
+                            <Typography variant="h6" gutterBottom sx={{ mt: 1 }}>
+                                Email
+                            </Typography>
+                            <Typography sx={{ color: 'text.secondary', mb: 1 }}>
+                                {user.email}
+                            </Typography>
+                        </Card>
 
-            <Card  sx={{ px: 5, mb: 1, width: '25vw', float: 'left' }}>
-              <Typography variant="h6" gutterBottom sx={{ mt: 1 }}>
-                Phone
-              </Typography>
-              <Typography sx={{ color: 'text.secondary', mb: 1 }}>0339645857</Typography>
-            </Card>
-            <Card  sx={{ px: 5, mb: 1, width: '25vw', float: 'left' }}>
-              <Typography variant="h6" gutterBottom sx={{ mt: 1 }}>
-                Height
-              </Typography>
-              <Typography sx={{ color: 'text.secondary', mb: 1 }}>173</Typography>
-              <Typography variant="h6" gutterBottom sx={{ mt: 1 }}>
-                Weight
-              </Typography>
-              <Typography sx={{ color: 'text.secondary', mb: 1 }}>53</Typography>
-            </Card>
+                        <Card sx={{ px: 5, mb: 1, width: '25vw', float: 'left' }}>
+                            <Typography variant="h6" gutterBottom sx={{ mt: 1 }}>
+                                Phone
+                            </Typography>
+                            <Typography sx={{ color: 'text.secondary', mb: 1 }}>
+                                {user.phone}
+                            </Typography>
+                        </Card>
+                        <Card sx={{ px: 5, mb: 1, width: '25vw', float: 'left' }}>
+                            <Typography variant="h6" gutterBottom sx={{ mt: 1 }}>
+                                Height
+                            </Typography>
+                            <Typography sx={{ color: 'text.secondary', mb: 1 }}>
+                                {user.height}
+                            </Typography>
+                            <Typography variant="h6" gutterBottom sx={{ mt: 1 }}>
+                                Weight
+                            </Typography>
+                            <Typography sx={{ color: 'text.secondary', mb: 1 }}>
+                                {user.weight}
+                            </Typography>
+                        </Card>
 
+                        <Card sx={{ px: 5, mb: 1, width: '25vw', float: 'left' }}>
+                            <Typography variant="h6" gutterBottom sx={{ mt: 1 }}>
+                                Email
+                            </Typography>
+                            <Typography sx={{ color: 'text.secondary', mb: 1 }}>
+                                {user.email}
+                            </Typography>
+                        </Card>
 
-8
-            {/* <AuthSocial /> */}
+                        {/* <AuthSocial /> */}
 
-
-
-
-            {/* <LoginForm /> */}
-            {/* <Grid item xs={12} md={6} lg={8}>
+                        {/* <LoginForm /> */}
+                        {/* <Grid item xs={12} md={6} lg={8}>
             <AppTasks
               title="Tasks"
               list={[
@@ -167,18 +206,17 @@ export default function PersonalPage() {
             />
           </Grid> */}
 
-            {!smUp && (
-              <Typography variant="body2" align="center" sx={{ mt: 3 }}>
-                Don’t have an account?{' '}
-                <Link variant="subtitle2" component={RouterLink} to="/register">
-                  Get started
-                </Link>
-              </Typography>
-            )}
-          </ContentStyle>
-
-        </Container>
-      </RootStyle>
-    </Page>
-  );
+                        {!smUp && (
+                            <Typography variant="body2" align="center" sx={{ mt: 3 }}>
+                                Don’t have an account?{' '}
+                                <Link variant="subtitle2" component={RouterLink} to="/register">
+                                    Get started
+                                </Link>
+                            </Typography>
+                        )}
+                    </ContentStyle>
+                </Container>
+            </RootStyle>
+        </Page>
+    );
 }
