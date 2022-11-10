@@ -1660,10 +1660,9 @@
   resolved "https://registry.npmjs.org/@leichtgewicht/ip-codec/-/ip-codec-2.0.4.tgz"
   integrity sha512-Hcv+nVC0kZnQ3tD9GVu5xSMR4VVYOteQIr/hwFPVEvPdlXqgGEuRjiheChHgdM+JyqdgNcmzZOX/tnl0JOiI7A==
 
-"@mobiscroll/react@https://npm.mobiscroll.com/@mobiscroll/react-trial/-/react-trial-5.19.0.tgz":
-  version "5.19.0"
-  resolved "https://npm.mobiscroll.com/@mobiscroll/react-trial/-/react-trial-5.19.0.tgz"
-  integrity sha512-mLkWJw4UXllzHeJx7ipM8NZiIDTMzqOGW/fwd+V69G9FO22f4HnhqLjp9op37wEh3cPNlfBHJnMspGhoFo4/pg==
+"@mobiscroll/react@https://npm.mobiscroll.com/@mobiscroll/react-trial/-/react-trial-5.19.2.tgz":
+  version "5.19.2"
+  resolved "https://npm.mobiscroll.com/@mobiscroll/react-trial/-/react-trial-5.19.2.tgz#b72795446e1206cbdd9fb3ab10300c3f2a8c240e"
 
 "@mui/base@5.0.0-alpha.101":
   version "5.0.0-alpha.101"
