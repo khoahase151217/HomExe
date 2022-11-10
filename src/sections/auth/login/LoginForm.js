@@ -1,79 +1,106 @@
 import * as Yup from 'yup';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 // form
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 // @mui
 import { Link, Stack, IconButton, InputAdornment } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
+// eslint-disable-next-line import/no-unresolved
+import { login } from 'src/app/rootReducer';
+import userApi from '../../../utils/userApi';
 // components
 import Iconify from '../../../components/Iconify';
-import { FormProvider, RHFTextField, RHFCheckbox } from '../../../components/hook-form';
+import { RHFTextField, RHFCheckbox } from '../../../components/hook-form';
 
 // ----------------------------------------------------------------------
-
-export default function LoginForm() {
-  const navigate = useNavigate();
-
-  const [showPassword, setShowPassword] = useState(false);
-
-  const LoginSchema = Yup.object().shape({
-    email: Yup.string().email('Email must be a valid email address').required('Email is required'),
-    password: Yup.string().required('Password is required'),
-  });
-
-  const defaultValues = {
-    email: '',
+const defaultValues = {
+    username: '',
     password: '',
     remember: true,
-  };
+};
 
-  const methods = useForm({
-    resolver: yupResolver(LoginSchema),
-    defaultValues,
-  });
+const LoginSchema = Yup.object({
+    username: Yup.string().required('Username is required'),
+    password: Yup.string().required('Password is required'),
+}).required();
 
-  const {
-    handleSubmit,
-    formState: { isSubmitting },
-  } = methods;
+export default function LoginForm() {
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const userInfo = useSelector((state) => state.auth.userInfo);
 
-  const onSubmit = async () => {
-    navigate('/dashboard', { replace: true });
-  };
+    const [showPassword, setShowPassword] = useState(false);
 
-  return (
-    <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
-      <Stack spacing={3}>
-        <RHFTextField name="email" label="Email address" />
+    const methods = useForm({
+        defaultValues,
+        resolver: yupResolver(LoginSchema),
+    });
 
-        <RHFTextField
-          name="password"
-          label="Password"
-          type={showPassword ? 'text' : 'password'}
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="end">
-                <IconButton onClick={() => setShowPassword(!showPassword)} edge="end">
-                  <Iconify icon={showPassword ? 'eva:eye-fill' : 'eva:eye-off-fill'} />
-                </IconButton>
-              </InputAdornment>
-            ),
-          }}
-        />
-      </Stack>
+    const {
+        control,
+        handleSubmit,
+        formState: { isSubmitting, errors },
+    } = methods;
 
-      <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ my: 2 }}>
-        <RHFCheckbox name="remember" label="Remember me" />
-        <Link variant="subtitle2" underline="hover">
-          Forgot password?
-        </Link>
-      </Stack>
+    const onSubmit = async ({ remember, ...passProps }) => {
+        const res = await userApi.login(passProps);
 
-      <LoadingButton fullWidth size="large" type="submit" variant="contained" loading={isSubmitting}>
-        Login
-      </LoadingButton>
-    </FormProvider>
-  );
+        await dispatch(login(res.data.data));
+        return navigate('/dashboard/app', { replace: true });
+    };
+
+    return (
+        <form onSubmit={handleSubmit(onSubmit)}>
+            <Stack spacing={3}>
+                <RHFTextField errors={errors} control={control} name="username" label="Username" />
+
+                <RHFTextField
+                    errors={errors}
+                    control={control}
+                    name="password"
+                    label="Password"
+                    type={showPassword ? 'text' : 'password'}
+                    InputProps={{
+                        endAdornment: (
+                            <InputAdornment position="end">
+                                <IconButton
+                                    onClick={() => setShowPassword(!showPassword)}
+                                    edge="end"
+                                >
+                                    <Iconify
+                                        icon={showPassword ? 'eva:eye-fill' : 'eva:eye-off-fill'}
+                                    />
+                                </IconButton>
+                            </InputAdornment>
+                        ),
+                    }}
+                />
+            </Stack>
+
+            <Stack
+                direction="row"
+                alignItems="center"
+                justifyContent="space-between"
+                sx={{ my: 2 }}
+            >
+                <RHFCheckbox control={control} name="remember" label="Remember me" />
+                <Link variant="subtitle2" underline="hover">
+                    Forgot password?
+                </Link>
+            </Stack>
+
+            <LoadingButton
+                fullWidth
+                size="large"
+                type="submit"
+                variant="contained"
+                loading={isSubmitting}
+            >
+                Login
+            </LoadingButton>
+        </form>
+    );
 }
