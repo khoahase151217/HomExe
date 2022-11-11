@@ -78,20 +78,7 @@ export default function LoginForm() {
                         ),
                     }}
                 />
-            </Stack>
-
-            <Stack
-                direction="row"
-                alignItems="center"
-                justifyContent="space-between"
-                sx={{ my: 2 }}
-            >
-                <RHFCheckbox control={control} name="remember" label="Remember me" />
-                <Link variant="subtitle2" underline="hover">
-                    Forgot password?
-                </Link>
-            </Stack>
-
+                
             <LoadingButton
                 fullWidth
                 size="large"
@@ -101,6 +88,9 @@ export default function LoginForm() {
             >
                 Login
             </LoadingButton>
+            </Stack>
+
+
         </form>
     );
 }

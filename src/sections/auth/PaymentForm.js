@@ -87,11 +87,12 @@ export default function PaymentForm() {
         evt.preventDefault();
         console.log(paymentInfo)
         const postData = async () => {
+            var today = new Date();
             await contractApi.postContract({
                 userId: userInfo.userId,
                 ptId: paymentInfo.ptId,
-                createdDate: new Date(),
-                endDate: '12/20/2022',
+                createdDate: today,
+                endDate: moment(today).add(1, 'M'),
                 schedule: paymentInfo.schedule,
             });
         };

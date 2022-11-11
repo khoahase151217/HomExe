@@ -42,6 +42,10 @@ import { LoginForm } from '../sections/auth/login';
 import AuthSocial from '../sections/auth/AuthSocial';
 import { useDispatch } from 'react-redux';
 import { setPayment } from 'src/app/rootReducer';
+
+import scheduleApi from '../utils/scheduleApi';
+import { useSelector } from 'react-redux';
+
 // ----------------------------------------------------------------------
 
 const RootStyle = styled('div')(({ theme }) => ({
@@ -88,10 +92,11 @@ const ContentStyle = styled('div')(({ theme }) => ({
 // ----------------------------------------------------------------------
 
 export default function PTDetails() {
+    const userInfo = useSelector((state) => state?.auth?.userInfo);
     const [schedule, setSchedule] = useState('7.00 - 9.30 Mon, Thu');
+    const [contract, setContract] = useState();
     const { id } = useParams();
-    
-    
+
     const dispatch = useDispatch();
 
     // const schedules = [
@@ -134,8 +139,8 @@ export default function PTDetails() {
                 schedule: schedules.indexOf(event.target.value),
             })
         );
-
         setSchedule(event.target.value);
+
     };
 
     const handleSubmit = (event) => {};
@@ -143,8 +148,11 @@ export default function PTDetails() {
     useEffect(() => {
         const initData = async () => {
             const tmp = await PtApi.getPtById(id);
-            console.log(tmp.data.data)
+            console.log(tmp.data.data);
             setPT(tmp.data.data);
+
+            const con = await scheduleApi.getUserSchedule(userInfo.userId);
+            setContract(con.data.data);
         };
         initData();
     }, []);
@@ -185,7 +193,11 @@ export default function PTDetails() {
                                 spacing={2}
                             >
                                 <Avatar
-                                    src={PT ? PT.cover : `static/mock-images/big_avatars/big_avatar1.jpeg`}
+                                    src={
+                                        PT
+                                            ? PT.cover
+                                            : `static/mock-images/big_avatars/big_avatar1.jpeg`
+                                    }
                                     alt="avatar"
                                     variant="rounded"
                                     sx={{
@@ -229,18 +241,21 @@ export default function PTDetails() {
                             }}
                         >
                             <PTRating />
-                            <RouterLink to="/payment">
-                                <Button
-                                    type="submit"
-                                    variant="extended"
-                                    color="primary"
-                                    aria-label="add"
-                                    onClick={handleSubmit}
-                                >
-                                    {/* <AddIcon sx={{ mr: 1 }} /> */}
-                                    Connect
-                                </Button>
-                            </RouterLink>
+                           
+                            {contract == null && (
+                                <RouterLink to="/payment">
+                                    <Button
+                                        type="submit"
+                                        variant="extended"
+                                        color="primary"
+                                        aria-label="add"
+                                        onClick={handleSubmit}
+                                    >
+                                        {/* <AddIcon sx={{ mr: 1 }} /> */}
+                                        Connect
+                                    </Button>
+                                </RouterLink>
+                            )}
                         </Box>
 
                         <Typography variant="h4" gutterBottom>
@@ -315,14 +330,6 @@ export default function PTDetails() {
 
                         {/* <PTImageList /> */}
 
-                        {!smUp && (
-                            <Typography variant="body2" align="center" sx={{ mt: 3 }}>
-                                Don’t have an account?{' '}
-                                <Link variant="subtitle2" component={RouterLink} to="/register">
-                                    Go back
-                                </Link>
-                            </Typography>
-                        )}
                     </ContentStyle>
                 </Container>
             </RootStyle>

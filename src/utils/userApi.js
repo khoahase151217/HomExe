@@ -9,6 +9,10 @@ const userApi = {
         const url = `/api/user/login`;
         return post(url, data);
     },
+    register: (data) => {
+        const url = `/api/user/register`;
+        return post(url, data);
+    },
 };
 
 export default userApi;

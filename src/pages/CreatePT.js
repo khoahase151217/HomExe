@@ -1,4 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import adminApi from '../utils/adminApi';
+
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 // form
@@ -8,38 +10,50 @@ import { useForm } from 'react-hook-form';
 import { LoadingButton } from '@mui/lab';
 import { IconButton, InputAdornment, Stack } from '@mui/material';
 // components
-import { RHFTextField } from '../../../components/hook-form';
-import Iconify from '../../../components/Iconify';
-import userApi from '../../../utils/userApi';
+import { RHFTextField } from '../components/hook-form';
+import Iconify from '../components/Iconify';
+import Select from '@mui/material/Select';
+import Box from '@mui/material/Box';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
 
-// ----------------------------------------------------------------------
+// @mui
+
 const defaultValues = {
-    userName: '',
+    email: '',
     firstName: '',
     lastName: '',
-    email: '',
+    phone: '',
     password: '',
-    phone: 0,
-    height: '',
-    weight: '',
+    linkMeet: '',
+    userName: '',
+    cover: '',
+    dob: '',
+    address: '',
 };
 
-const RegisterSchema = Yup.object({
+const CreateSchema = Yup.object({
     userName: Yup.string().required('User name required'),
+    phone: Yup.string().required('Phone required'),
+    linkMeet: Yup.string().required('Link meet required'),
+    cover: Yup.string().required('Cover required'),
+    dob: Yup.string().required('Day of birth required'),
+    address: Yup.string().required('Address required'),
     firstName: Yup.string().required('First name required'),
     lastName: Yup.string().required('Last name required'),
     email: Yup.string().email('Email must be a valid email address').required('Email is required'),
     password: Yup.string().required('Password is required'),
 }).required();
 
-export default function RegisterForm() {
+export default function CreatePT() {
     const navigate = useNavigate();
 
     const [showPassword, setShowPassword] = useState(false);
-
+    const [category, setCategory] = useState(0);
+    const [list, setList] = useState([]);
     const methods = useForm({
         defaultValues,
-        resolver: yupResolver(RegisterSchema),
+        resolver: yupResolver(CreateSchema),
     });
 
     const {
@@ -48,10 +62,38 @@ export default function RegisterForm() {
         formState: { isSubmitting, errors },
     } = methods;
 
-    const onSubmit = async ({...passProps}) => {
-        userApi.register(passProps);
-        navigate('/login', { replace: true });
+    const onSubmit = async ({ ...passProps }) => {
+        await adminApi.createPt({
+            email: passProps.email,
+            userName: passProps.userName,
+            password: passProps.password,
+            phone: passProps.phone,
+            linkMeet: passProps.linkMeet,
+            firstName: passProps.firstName,
+            lastName: passProps.lastName,
+            dob: passProps.dob,
+            cover: passProps.cover,
+            address: passProps.address,
+            categoryId: category
+        });
+        console.log(123);
+        navigate('/admin', { replace: true });
     };
+
+    const handleChange = (event) => {
+        setCategory(event.target.value);
+    };
+
+    useEffect(() => {
+        console.log('test');
+        const initData = async () => {
+            const tmp = await adminApi.getCategory();
+            setList(tmp.data.data);
+        };
+        initData();
+    }, []);
+
+    console.log("CAT", category);
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -71,12 +113,19 @@ export default function RegisterForm() {
                     />
                 </Stack>
 
-                <RHFTextField
-                        errors={errors}
-                        control={control}
-                        name="userName"
-                        label="User name"
-                    />
+                <RHFTextField errors={errors} control={control} name="userName" label="User name" />
+                <InputLabel id="demo-simple-select-label">Category</InputLabel>
+                <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    label="Category"
+                    onChange={handleChange}
+                >
+                    {list?.map((item) => {
+                        console.log(item);
+                        return <MenuItem value={item.categoryId}>{item.category}</MenuItem>;
+                    })}
+                </Select>
 
                 <RHFTextField
                     control={control}
@@ -84,6 +133,7 @@ export default function RegisterForm() {
                     name="email"
                     label="Email address"
                 />
+
 
                 <RHFTextField
                     control={control}
@@ -107,26 +157,15 @@ export default function RegisterForm() {
                     }}
                 />
 
-                <RHFTextField
-                    control={control}
-                    errors={errors}
-                    name="phone"
-                    label="Phone number"
-                />
+                <RHFTextField control={control} errors={errors} name="phone" label="Phone number" />
 
-                <RHFTextField
-                    control={control}
-                    errors={errors}
-                    name="height"
-                    label="Height"
-                />
+                <RHFTextField control={control} errors={errors} name="linkMeet" label="LinkMeet" />
 
-                <RHFTextField
-                    control={control}
-                    errors={errors}
-                    name="weight"
-                    label="Weight"
-                />
+                <RHFTextField control={control} errors={errors} name="cover" label="Image" />
+
+                <RHFTextField control={control} errors={errors} name="dob" label="Day of birth" />
+
+                <RHFTextField control={control} errors={errors} name="address" label="Address" />
 
                 <LoadingButton
                     fullWidth
@@ -135,7 +174,7 @@ export default function RegisterForm() {
                     variant="contained"
                     loading={isSubmitting}
                 >
-                    Register
+                    Create
                 </LoadingButton>
             </Stack>
         </form>

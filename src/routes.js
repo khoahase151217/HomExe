@@ -8,6 +8,8 @@ import User from './pages/User';
 import Login from './pages/Login';
 import PersonalPage from './pages/PersonalPage';
 import Calendar from './pages/Calendar';
+import Admin from './pages/Admin';
+import CreatePT from './pages/CreatePT';
 import NotFound from './pages/Page404';
 import Register from './pages/Register';
 import Products from './pages/Products';
@@ -57,6 +59,14 @@ export default function Router() {
         {
             path: '/payment',
             element: <Payment />,
+        },
+        {
+            path: '/admin',
+            element: <Admin />,
+        },
+        {
+            path: '/createPT',
+            element: <CreatePT />,
         },
         {
             path: '*',
