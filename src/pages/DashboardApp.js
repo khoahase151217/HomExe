@@ -151,7 +151,7 @@ export default function DashboardApp() {
         <Page title="Dashboard">
             <Container maxWidth="xl">
                 <Typography variant="h4" sx={{ mb: 5 }}>
-                    Hi, Welcome back
+                    Hi, Welcome back {userInfo.fullName}
                 </Typography>
 
                 <Grid container justifyContent={'space-between'} spacing={3}>
