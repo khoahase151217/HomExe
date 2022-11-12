@@ -156,7 +156,7 @@ export default function PTDetails() {
         };
         initData();
     }, []);
-
+console.log("con" ,contract)
     return (
         <Page title="PT Detail">
             <RootStyle>
@@ -242,7 +242,7 @@ export default function PTDetails() {
                         >
                             <PTRating />
                            
-                            {contract == null && (
+                            {contract == 0 && (
                                 <RouterLink to="/payment">
                                     <Button
                                         type="submit"

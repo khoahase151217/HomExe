@@ -12,6 +12,11 @@ import PtApi from '../utils/PtApi';
 
 import scheduleApi from '../utils/scheduleApi';
 import Page from '../components/Page';
+
+
+
+
+
 import Iconify from '../components/Iconify';
 
 import { useNavigate } from 'react-router-dom/dist';
@@ -138,7 +143,7 @@ export default function DashboardApp() {
                 console.log(calendar.data);
                 setUserCalendar(calendar.data);
 
-                setPt(tmp.data);
+                setPt(tmp.data.data);
             };
             initData();
         } else {
@@ -147,7 +152,10 @@ export default function DashboardApp() {
         }
     }, []);
 
+  
+
     return (
+       
         <Page title="Dashboard">
             <Container maxWidth="xl">
                 <Typography variant="h4" sx={{ mb: 5 }}>
@@ -164,6 +172,7 @@ export default function DashboardApp() {
                         post.title = userInfo.fullName;
                         return <News key={post.id} post={post} index={index} />;
                     })}
+
 
                     {userCalendar && pt && <Calendar index={userCalendar} linkMeet={pt.linkMeet} />}
 
@@ -222,5 +231,6 @@ export default function DashboardApp() {
                 </Grid>
             </Container>
         </Page>
+
     );
 }

@@ -76,12 +76,14 @@ export default function EcommerceShop() {
     };
 
     const filteredUsers = applySortFilter(products, getComparator('desc', ''), filterName);
+    const users = applySortFilter(products, getComparator('desc', ''), filterName);
 
     useEffect(() => {
         const initData = async () => {
             const tmp = await PtApi.getAll().then((res) => res.data);
             console.log(tmp.data);
             setProducts(tmp.data);
+
         };
         initData();
     }, []);

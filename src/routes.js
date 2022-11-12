@@ -6,6 +6,7 @@ import LogoOnlyLayout from './layouts/LogoOnlyLayout';
 import Blog from './pages/Blog';
 import User from './pages/User';
 import Login from './pages/Login';
+import Users from './pages/Users';
 import PersonalPage from './pages/PersonalPage';
 import Calendar from './pages/Calendar';
 import Admin from './pages/Admin';
@@ -67,6 +68,10 @@ export default function Router() {
         {
             path: '/createPT',
             element: <CreatePT />,
+        },
+        {
+            path: '/users',
+            element: <Users />,
         },
         {
             path: '*',

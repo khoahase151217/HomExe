@@ -5,6 +5,10 @@ const contractApi = {
         const url = `/api/contract/user`;
         return get(url, { userId: IDBCursorWithValue });
     },
+    getContractByPtId: (id = '') => {
+        const url = `/api/contract/pt`;
+        return get(url, { ptId: id });
+    },
     updateStatusPaymentContract: (id = '') => {
         const url = `/api/contract/user`;
         return put(url, {}, { userId: id });
