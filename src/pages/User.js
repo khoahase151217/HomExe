@@ -31,7 +31,6 @@ import { UserListHead, UserListToolbar, UserMoreMenu } from '../sections/@dashbo
 import Calendar from './Calendar';
 // mock
 import USERLIST from '../_mock/user';
-import PTCalendar from 'src/sections/@dashboard/user/PTCalendar';
 
 // ----------------------------------------------------------------------
 
@@ -181,7 +180,6 @@ export default function User() {
                         <News key={post.id} post={post} index={index} />
                     ))} */}
 
-                    <PTCalendar />
 
                     {/* <Grid item xs={12} md={12} lg={12}>
                         <AppOrderTimeline
