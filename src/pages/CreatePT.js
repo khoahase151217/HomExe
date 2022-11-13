@@ -17,6 +17,9 @@ import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 // @mui
 
 const defaultValues = {
@@ -63,7 +66,7 @@ export default function CreatePT() {
     } = methods;
 
     const onSubmit = async ({ ...passProps }) => {
-        await adminApi.createPt({
+       const res =  await adminApi.createPt({
             email: passProps.email,
             userName: passProps.userName,
             password: passProps.password,
@@ -76,6 +79,13 @@ export default function CreatePT() {
             address: passProps.address,
             categoryId: category
         });
+        if(res.data.code != 200){
+            toast("Create PT failed!");
+
+        }else{
+            toast("Create PT successfully!");
+
+        }
         console.log(123);
         navigate('/admin', { replace: true });
     };

@@ -4,11 +4,15 @@ import adminApi from '../utils/adminApi';
 
 import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom/dist';
 
 import { DataGrid } from '@mui/x-data-grid';
+import Page from '../components/Page';
+import AdminPopover from '../layouts/dashboard/AdminPopover';
+
 
 const columns = [
     { field: 'id', headerName: 'ID', width: 100 },
@@ -84,6 +88,9 @@ export default function Admin() {
 
 
     return (
+        <Page title="Admin">
+        <Container maxWidth="xl">
+            <AdminPopover/>
         <Stack spacing={2} sx={{ width: '100%' }}>
         <Button onClick={() => handleCreate()}>Create PT</Button>
 
@@ -98,5 +105,7 @@ export default function Admin() {
             </Box>
             {message && <Alert severity="info">{message}</Alert>}
         </Stack>
+        </Container>
+        </Page>
     );
 }

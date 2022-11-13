@@ -22,13 +22,8 @@ const navConfig = [
         icon: getIcon('eva:file-text-fill'),
     },
     {
-        title: 'login',
-        path: '/login',
-        icon: getIcon('eva:lock-fill'),
-    },
-    {
         title: 'Personal Page',
-        path: '/personalPage',
+        path: '/dashboard/personalPage',
         icon: getIcon('eva:lock-fill'),
     },
 

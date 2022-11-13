@@ -14,6 +14,8 @@ import userApi from '../../../utils/userApi';
 // components
 import Iconify from '../../../components/Iconify';
 import { RHFTextField, RHFCheckbox } from '../../../components/hook-form';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 // ----------------------------------------------------------------------
 const defaultValues = {
@@ -47,8 +49,14 @@ export default function LoginForm() {
 
     const onSubmit = async ({ remember, ...passProps }) => {
         const res = await userApi.login(passProps);
+        if(res.data.data  == null){
+            toast("Login failed!");
+        return navigate('/login', { replace: true });
 
+        }
         await dispatch(login(res.data.data));
+        toast("Login successfully!");
+
         return navigate('/dashboard/app', { replace: true });
     };
 

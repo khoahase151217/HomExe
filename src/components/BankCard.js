@@ -1,8 +1,9 @@
 import { Box } from '@mui/material';
 import Card from '@mui/material/Card';
+
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
-import QRCode from 'react-qr-code';
+import QRCode from 'src/_mock/QR-CODE.jpg';
 
 export default function BankCard({ bankName }) {
   return (
@@ -19,11 +20,13 @@ export default function BankCard({ bankName }) {
           }}
         >
           <Typography variant="body2" color="text.secondary">
-            Name: HomExe
+            VU THI NGOC HA
             <br />
-            19112204568866
+            19036492028016
+            <br />
+          <img width="100%" height="100%" src={QRCode}/>
+
           </Typography>
-          <QRCode size={60} style={{ height: 'auto', maxWidth: '60px', width: '60px' }} value={'https://abc.com'} />
         </Box>
       </CardContent>
     </Card>

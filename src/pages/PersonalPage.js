@@ -89,7 +89,7 @@ export default function PersonalPage() {
     }, []);
 
     return (
-        <Page title="Login">
+        <Page title="Dashboard: Personal Page">
             <RootStyle>
                 <HeaderStyle>
                     <Logo />

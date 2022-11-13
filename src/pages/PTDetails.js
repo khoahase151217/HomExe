@@ -261,7 +261,6 @@ console.log("con" ,contract)
                         <Typography variant="h4" gutterBottom>
                             Contact Info
                         </Typography>
-                        <AuthSocial />
                         <Grid>
                             <Box
                                 sx={{

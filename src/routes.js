@@ -30,16 +30,17 @@ export default function Router() {
                 { path: 'user', element: <User /> },
                 { path: 'products', element: <Products /> },
                 { path: 'blog', element: <Blog /> },
+                {
+                    path: 'personalPage',
+                    element: <PersonalPage />
+                },
             ],
         },
         {
             path: 'login',
             element: <Login />,
         },
-        {
-            path: 'personalPage',
-            element: <PersonalPage />,
-        },
+
         {
             path: 'register',
             element: <Register />,

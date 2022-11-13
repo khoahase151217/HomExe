@@ -119,8 +119,7 @@ export default function Payment({ ptId }) {
 
                         {/* <AuthSocial /> */}
                         <Stack spacing={2}>
-                            <BankCard bankName={'Techcombank'} />
-                            <BankCard bankName={'Sacombank'} />
+                            <BankCard bankName={'Techcombank'}  />
                         </Stack>
 
                         {!smUp && (
