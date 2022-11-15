@@ -86,7 +86,6 @@ export default function CreatePT() {
             toast("Create PT successfully!");
 
         }
-        console.log(123);
         navigate('/admin', { replace: true });
     };
 
@@ -95,7 +94,6 @@ export default function CreatePT() {
     };
 
     useEffect(() => {
-        console.log('test');
         const initData = async () => {
             const tmp = await adminApi.getCategory();
             setList(tmp.data.data);
@@ -103,7 +101,6 @@ export default function CreatePT() {
         initData();
     }, []);
 
-    console.log("CAT", category);
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -132,7 +129,6 @@ export default function CreatePT() {
                     onChange={handleChange}
                 >
                     {list?.map((item) => {
-                        console.log(item);
                         return <MenuItem value={item.categoryId}>{item.category}</MenuItem>;
                     })}
                 </Select>

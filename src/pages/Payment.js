@@ -63,7 +63,6 @@ export default function Payment({ ptId }) {
     const userInfo = useSelector((state) => state?.auth?.userInfo);
     const paymentInfo = useSelector((state) => state?.auth?.paymentInfo);
     const smUp = useResponsive('up', 'sm');
-    console.log({ paymentInfo, userInfo });
 
     const mdUp = useResponsive('up', 'md');
 
@@ -119,7 +118,7 @@ export default function Payment({ ptId }) {
 
                         {/* <AuthSocial /> */}
                         <Stack spacing={2}>
-                            <BankCard bankName={'Techcombank'}  />
+                            <BankCard bankName={'Techcombank'} />
                         </Stack>
 
                         {!smUp && (

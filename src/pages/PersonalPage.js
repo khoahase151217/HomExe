@@ -78,11 +78,9 @@ export default function PersonalPage() {
 
     const mdUp = useResponsive('up', 'md');
     const userInfo = useSelector((state)=> state.auth.userInfo)
-    console.log(userInfo);
     useEffect(() => {
         const initData = async () => {
             const tmp = await userApi.getUserId(userInfo.id).then((res) => res.data);
-            console.log(tmp.data);
             setUser(tmp.data);
         };
         initData();

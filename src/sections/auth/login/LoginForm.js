@@ -1,21 +1,21 @@
-import * as Yup from 'yup';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import * as Yup from 'yup';
 // form
-import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useForm } from 'react-hook-form';
 // @mui
-import { Link, Stack, IconButton, InputAdornment } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
+import { IconButton, InputAdornment, Stack } from '@mui/material';
 // eslint-disable-next-line import/no-unresolved
 import { login } from 'src/app/rootReducer';
 import userApi from '../../../utils/userApi';
 // components
-import Iconify from '../../../components/Iconify';
-import { RHFTextField, RHFCheckbox } from '../../../components/hook-form';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { RHFTextField } from '../../../components/hook-form';
+import Iconify from '../../../components/Iconify';
 
 // ----------------------------------------------------------------------
 const defaultValues = {
@@ -34,6 +34,8 @@ export default function LoginForm() {
     const dispatch = useDispatch();
     const userInfo = useSelector((state) => state.auth.userInfo);
 
+    console.log({ userInfo });
+
     const [showPassword, setShowPassword] = useState(false);
 
     const methods = useForm({
@@ -49,13 +51,12 @@ export default function LoginForm() {
 
     const onSubmit = async ({ remember, ...passProps }) => {
         const res = await userApi.login(passProps);
-        if(res.data.data  == null){
-            toast("Login failed!");
-        return navigate('/login', { replace: true });
-
+        if (res.data.data == null) {
+            toast.error('Login failed!');
+            return navigate('/login', { replace: true });
         }
         await dispatch(login(res.data.data));
-        toast("Login successfully!");
+        toast.success('Login successfully!');
 
         return navigate('/dashboard/app', { replace: true });
     };
@@ -86,19 +87,17 @@ export default function LoginForm() {
                         ),
                     }}
                 />
-                
-            <LoadingButton
-                fullWidth
-                size="large"
-                type="submit"
-                variant="contained"
-                loading={isSubmitting}
-            >
-                Login
-            </LoadingButton>
+
+                <LoadingButton
+                    fullWidth
+                    size="large"
+                    type="submit"
+                    variant="contained"
+                    loading={isSubmitting}
+                >
+                    Login
+                </LoadingButton>
             </Stack>
-
-
         </form>
     );
 }
