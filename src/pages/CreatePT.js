@@ -101,7 +101,7 @@ export default function CreatePT() {
         initData();
     }, []);
 
-    console.log("CAT", category);
+    console.log('CAT', category);
 
     return (
         <Box>
@@ -129,21 +129,19 @@ export default function CreatePT() {
                         name="userName"
                         label="User name"
                     />
-                </Stack>
 
-                <RHFTextField errors={errors} control={control} name="userName" label="User name" />
-                <InputLabel id="demo-simple-select-label">Category</InputLabel>
-                <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    label="Category"
-                    onChange={handleChange}
-                >
-                    {list?.map((item) => {
-                        console.log(item);
-                        return <MenuItem value={item.categoryId}>{item.category}</MenuItem>;
-                    })}
-                </Select>
+                    <InputLabel id="demo-simple-select-label">Category</InputLabel>
+                    <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        label="Category"
+                        onChange={handleChange}
+                    >
+                        {list?.map((item) => {
+                            console.log(item);
+                            return <MenuItem value={item.categoryId}>{item.category}</MenuItem>;
+                        })}
+                    </Select>
 
                     <RHFTextField
                         control={control}
