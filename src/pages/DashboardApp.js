@@ -13,10 +13,6 @@ import PtApi from '../utils/PtApi';
 import scheduleApi from '../utils/scheduleApi';
 import Page from '../components/Page';
 
-
-
-
-
 import Iconify from '../components/Iconify';
 
 import { useNavigate } from 'react-router-dom/dist';
@@ -108,7 +104,6 @@ export default function DashboardApp() {
 
     const userInfo = useSelector((state) => state?.auth?.userInfo);
 
-    console.log('userInfo', userInfo);
     // prototype
     const [user, setUser] = useState();
     const [pt, setPt] = useState();
@@ -120,12 +115,10 @@ export default function DashboardApp() {
         if (userInfo.roleId == 1) {
             const initData = async () => {
                 const tmp = await userApi.getUserId(userInfo.userId);
-                console.log(tmp.data);
                 setUser(tmp.data);
 
                 // Call API to get calendar
                 const calendar = await scheduleApi.getUserSchedule(userInfo.userId);
-                console.log(calendar.data);
                 setUserCalendar(calendar.data);
 
                 const PT = await PtApi.getPtByUserId(userInfo.userId);
@@ -135,12 +128,10 @@ export default function DashboardApp() {
         } else if (userInfo.roleId == 2) {
             const initData = async () => {
                 const tmp = await PtApi.getPtById(userInfo.ptId);
-                console.log(tmp.data);
                 setUser(tmp.data);
 
                 // Call API to get calendar
                 const calendar = await scheduleApi.getPtSchedule(userInfo.ptId);
-                console.log(calendar.data);
                 setUserCalendar(calendar.data);
 
                 setPt(tmp.data.data);
@@ -152,10 +143,7 @@ export default function DashboardApp() {
         }
     }, []);
 
-  
-
     return (
-       
         <Page title="Dashboard">
             <Container maxWidth="xl">
                 <Typography variant="h4" sx={{ mb: 5 }}>
@@ -172,7 +160,6 @@ export default function DashboardApp() {
                         post.title = userInfo.fullName;
                         return <News key={post.id} post={post} index={index} />;
                     })}
-
 
                     {userCalendar && pt && <Calendar index={userCalendar} linkMeet={pt.linkMeet} />}
 
@@ -231,6 +218,5 @@ export default function DashboardApp() {
                 </Grid>
             </Container>
         </Page>
-
     );
 }

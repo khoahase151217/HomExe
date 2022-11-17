@@ -86,7 +86,6 @@ export default function CreatePT() {
         } else {
             toast('Create PT successfully!');
         }
-        console.log(123);
         navigate('/admin', { replace: true });
     };
 
@@ -95,7 +94,6 @@ export default function CreatePT() {
     };
 
     useEffect(() => {
-        console.log('test');
         const initData = async () => {
             const tmp = await adminApi.getCategory();
             setList(tmp.data.data);
@@ -103,7 +101,7 @@ export default function CreatePT() {
         initData();
     }, []);
 
-    console.log('CAT', category);
+    console.log("CAT", category);
 
     return (
         <Box>
@@ -131,18 +129,21 @@ export default function CreatePT() {
                         name="userName"
                         label="User name"
                     />
-                    <InputLabel id="demo-simple-select-label">Category</InputLabel>
-                    <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        label="Category"
-                        onChange={handleChange}
-                    >
-                        {list?.map((item) => {
-                            console.log(item);
-                            return <MenuItem value={item.categoryId}>{item.category}</MenuItem>;
-                        })}
-                    </Select>
+                </Stack>
+
+                <RHFTextField errors={errors} control={control} name="userName" label="User name" />
+                <InputLabel id="demo-simple-select-label">Category</InputLabel>
+                <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    label="Category"
+                    onChange={handleChange}
+                >
+                    {list?.map((item) => {
+                        console.log(item);
+                        return <MenuItem value={item.categoryId}>{item.category}</MenuItem>;
+                    })}
+                </Select>
 
                     <RHFTextField
                         control={control}

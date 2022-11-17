@@ -81,7 +81,6 @@ export default function EcommerceShop() {
     useEffect(() => {
         const initData = async () => {
             const tmp = await PtApi.getAll().then((res) => res.data);
-            console.log(tmp.data);
             setProducts(tmp.data);
 
         };

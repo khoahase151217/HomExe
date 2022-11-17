@@ -148,7 +148,6 @@ export default function PTDetails() {
     useEffect(() => {
         const initData = async () => {
             const tmp = await PtApi.getPtById(id);
-            console.log(tmp.data.data);
             setPT(tmp.data.data);
 
             const con = await scheduleApi.getUserSchedule(userInfo.userId);
@@ -156,7 +155,6 @@ export default function PTDetails() {
         };
         initData();
     }, []);
-console.log("con" ,contract)
     return (
         <Page title="PT Detail">
             <RootStyle>

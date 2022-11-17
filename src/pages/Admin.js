@@ -13,7 +13,6 @@ import { DataGrid } from '@mui/x-data-grid';
 import Page from '../components/Page';
 import AdminPopover from '../layouts/dashboard/AdminPopover';
 
-
 const columns = [
     { field: 'id', headerName: 'ID', width: 100 },
     {
@@ -65,7 +64,6 @@ export default function Admin() {
     });
 
     useEffect(() => {
-        console.log('test');
         const initData = async () => {
             const tmp = await adminApi.getContractForAdmin();
             setList(tmp.data.data);
@@ -76,37 +74,34 @@ export default function Admin() {
 
     const handleRowClick = (params) => {
         adminApi.confirmContract(params.row.id);
-        console.log('click');
         setMessage(`Order of "${params.row.userName}" is accepted`);
         setClick(true);
     };
 
     const handleCreate = () => {
         navigate('/createPT', { replace: true });
-
-    }
-
+    };
 
     return (
         <Page title="Admin">
-        <Container maxWidth="xl">
 
-            <AdminPopover/>
-        <Stack spacing={2} sx={{ width: '100%' }}>
-        <Button onClick={() => handleCreate()}>Create PT</Button>
+            <Container maxWidth="xl">
+                <AdminPopover />
+                <Stack spacing={2} sx={{ width: '100%' }}>
+                    <Button onClick={() => handleCreate()}>Create PT</Button>
 
-            <Box sx={{ height: 400, width: '100%' }}>
-                <DataGrid
-                    onRowClick={handleRowClick}
-                    rows={rows}
-                    columns={columns}
-                    pageSize={5}
-                    rowsPerPageOptions={[5]}
-                />
-            </Box>
-            {message && <Alert severity="info">{message}</Alert>}
-        </Stack>
-        </Container>
+                    <Box sx={{ height: 400, width: '100%' }}>
+                        <DataGrid
+                            onRowClick={handleRowClick}
+                            rows={rows}
+                            columns={columns}
+                            pageSize={5}
+                            rowsPerPageOptions={[5]}
+                        />
+                    </Box>
+                    {message && <Alert severity="info">{message}</Alert>}
+                </Stack>
+            </Container>
         </Page>
     );
 }

@@ -71,7 +71,6 @@ export default function Admin() {
     });
 
     useEffect(() => {
-        console.log('test');
         const initData = async () => {
             const tmp = await contractApi.getContractByPtId(userInfo.ptId);
             setList(tmp.data.data);

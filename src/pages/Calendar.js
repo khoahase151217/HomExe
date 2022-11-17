@@ -1,4 +1,3 @@
-
 import { Box, Button, Link, Typography } from '@mui/material';
 import { isNumber } from 'lodash';
 // import moment from 'moment';
@@ -27,12 +26,10 @@ function Calendar({ index, linkMeet }) {
         '15:30, 17:00, Wednesday, Saturday',
     ];
     const temp = [];
-    console.log('index', index);
-    console.log('linkMeet', linkMeet);
+
     const SLOT_COMPONENTS = [];
     if (isNumber(index.data)) {
         const data = SLOT_CATEGORIES[index.data];
-        console.log(SLOT_CATEGORIES);
 
         const dataArray = data?.split(',');
 
@@ -49,7 +46,6 @@ function Calendar({ index, linkMeet }) {
 
         SLOT_COMPONENTS.push(data1);
         SLOT_COMPONENTS.push(data2);
-        console.log('slot', SLOT_COMPONENTS);
 
         // get calendar for pt
     } else {
@@ -61,7 +57,6 @@ function Calendar({ index, linkMeet }) {
                 }
             })
         );
-        console.log('SLOT', temp);
 
         temp.forEach((element) => {
             const dataArray = element?.split(',');
@@ -79,9 +74,7 @@ function Calendar({ index, linkMeet }) {
             SLOT_COMPONENTS.push(data1);
             SLOT_COMPONENTS.push(data2);
         });
-        console.log('slot', SLOT_COMPONENTS);
     }
-
 
     const handleView = () => {
         navigate('/users', { replace: true });
@@ -131,7 +124,6 @@ function Calendar({ index, linkMeet }) {
                 {linkMeet}
             </Link>
             {SLOT_COMPONENTS?.map((slot, idx) => {
-                console.log(123);
 
                 return (
                     <Box key={idx}>
