@@ -92,7 +92,7 @@ export default function PaymentForm() {
                 userId: userInfo.userId,
                 ptId: paymentInfo.ptId,
                 createdDate: today,
-                endDate: moment(today).add(1, 'M'),
+                endDate: moment(today).add(7, 'd'),
                 schedule: paymentInfo.schedule,
             });
         };
@@ -166,7 +166,7 @@ export default function PaymentForm() {
                 id="outlined-number"
                 label="Total Money"
                 type="number"
-                value="150000"
+                value="50000"
                 InputLabelProps={{
                     shrink: true,
                 }}

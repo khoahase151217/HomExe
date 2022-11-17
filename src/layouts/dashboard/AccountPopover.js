@@ -21,7 +21,7 @@ const MENU_OPTIONS = [
   {
     label: 'Profile',
     icon: 'eva:person-fill',
-    linkTo: '/personalPage',
+    linkTo: '/dashboard/personalPage',
   },
   {
     label: 'Logout',

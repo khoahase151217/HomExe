@@ -14,6 +14,11 @@ import { useSelector } from 'react-redux';
 
 const MENU_OPTIONS = [
   {
+    label: 'Home',
+    icon: 'eva:home-fill',
+    linkTo: '/admin',
+  },
+  {
     label: 'Logout',
     icon: 'eva:logout-fill',
     linkTo: '/login',
