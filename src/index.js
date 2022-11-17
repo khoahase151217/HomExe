@@ -2,28 +2,31 @@
 import 'simplebar/src/simplebar.css';
 
 import ReactDOM from 'react-dom/client';
-import { BrowserRouter } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
-import { Provider } from 'react-redux'
+import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
+import { PersistGate } from 'redux-persist/integration/react';
 
 //
 import App from './App';
-import * as serviceWorker from './serviceWorker';
+import store, { persistor } from './app/store';
 import reportWebVitals from './reportWebVitals';
-import store from './app/store';
+import * as serviceWorker from './serviceWorker';
 
 // ----------------------------------------------------------------------
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
-  <HelmetProvider>
-    <BrowserRouter>
-    <Provider store={store}>
-      <App />
-    </Provider>
-    </BrowserRouter>
-  </HelmetProvider>
+    <HelmetProvider>
+        <BrowserRouter>
+            <Provider store={store}>
+                <PersistGate loading={null} persistor={persistor}>
+                    <App />
+                </PersistGate>
+            </Provider>
+        </BrowserRouter>
+    </HelmetProvider>
 );
 
 // If you want to enable client cache, register instead.

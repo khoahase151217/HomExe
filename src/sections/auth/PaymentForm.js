@@ -65,7 +65,7 @@ export default function PaymentForm() {
     //     };
     //     initData();
     // }, []);
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
     const months = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
     const schedules = [
@@ -85,7 +85,6 @@ export default function PaymentForm() {
 
     const handleSubmit = (evt) => {
         evt.preventDefault();
-        console.log(paymentInfo)
         const postData = async () => {
             var today = new Date();
             await contractApi.postContract({
@@ -97,7 +96,7 @@ export default function PaymentForm() {
             });
         };
         postData();
-        navigate('/dashboard/app')
+        navigate('/dashboard/app');
     };
 
     return (
@@ -171,7 +170,7 @@ export default function PaymentForm() {
                     shrink: true,
                 }}
             />
-            
+
             <Button type="submit" variant="contained" color="primary" fullWidth>
                 I have completed the payment
             </Button>
