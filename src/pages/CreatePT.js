@@ -20,8 +20,6 @@ import MenuItem from '@mui/material/MenuItem';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import AdminPopover from '../layouts/dashboard/AdminPopover';
-
 // @mui
 
 const defaultValues = {
@@ -68,7 +66,7 @@ export default function CreatePT() {
     } = methods;
 
     const onSubmit = async ({ ...passProps }) => {
-        const res = await adminApi.createPt({
+       const res =  await adminApi.createPt({
             email: passProps.email,
             userName: passProps.userName,
             password: passProps.password,
@@ -79,12 +77,14 @@ export default function CreatePT() {
             dob: passProps.dob,
             cover: passProps.cover,
             address: passProps.address,
-            categoryId: category,
+            categoryId: category
         });
-        if (res.data.code != 200) {
-            toast('Create PT failed!');
-        } else {
-            toast('Create PT successfully!');
+        if(res.data.code != 200){
+            toast("Create PT failed!");
+
+        }else{
+            toast("Create PT successfully!");
+
         }
         navigate('/admin', { replace: true });
     };
@@ -101,120 +101,88 @@ export default function CreatePT() {
         initData();
     }, []);
 
-    console.log('CAT', category);
 
     return (
-        <Box>
-            <AdminPopover />
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <Stack spacing={3}>
-                    <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
-                        <RHFTextField
-                            errors={errors}
-                            control={control}
-                            name="firstName"
-                            label="First name"
-                        />
-                        <RHFTextField
-                            errors={errors}
-                            control={control}
-                            name="lastName"
-                            label="Last name"
-                        />
-                    </Stack>
-
+        <form onSubmit={handleSubmit(onSubmit)}>
+            <Stack spacing={3}>
+                <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
                     <RHFTextField
                         errors={errors}
                         control={control}
-                        name="userName"
-                        label="User name"
+                        name="firstName"
+                        label="First name"
                     />
-
-                    <InputLabel id="demo-simple-select-label">Category</InputLabel>
-                    <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        label="Category"
-                        onChange={handleChange}
-                    >
-                        {list?.map((item) => {
-                            console.log(item);
-                            return <MenuItem value={item.categoryId}>{item.category}</MenuItem>;
-                        })}
-                    </Select>
-
                     <RHFTextField
-                        control={control}
                         errors={errors}
-                        name="email"
-                        label="Email address"
-                    />
-
-                    <RHFTextField
                         control={control}
-                        errors={errors}
-                        name="password"
-                        label="Password"
-                        type={showPassword ? 'text' : 'password'}
-                        InputProps={{
-                            endAdornment: (
-                                <InputAdornment position="end">
-                                    <IconButton
-                                        edge="end"
-                                        onClick={() => setShowPassword(!showPassword)}
-                                    >
-                                        <Iconify
-                                            icon={
-                                                showPassword ? 'eva:eye-fill' : 'eva:eye-off-fill'
-                                            }
-                                        />
-                                    </IconButton>
-                                </InputAdornment>
-                            ),
-                        }}
+                        name="lastName"
+                        label="Last name"
                     />
-
-                    <RHFTextField
-                        control={control}
-                        errors={errors}
-                        name="phone"
-                        label="Phone number"
-                    />
-
-                    <RHFTextField
-                        control={control}
-                        errors={errors}
-                        name="linkMeet"
-                        label="LinkMeet"
-                    />
-
-                    <RHFTextField control={control} errors={errors} name="cover" label="Image" />
-
-                    <RHFTextField
-                        control={control}
-                        errors={errors}
-                        name="dob"
-                        label="Day of birth"
-                    />
-
-                    <RHFTextField
-                        control={control}
-                        errors={errors}
-                        name="address"
-                        label="Address"
-                    />
-
-                    <LoadingButton
-                        fullWidth
-                        size="large"
-                        type="submit"
-                        variant="contained"
-                        loading={isSubmitting}
-                    >
-                        Create
-                    </LoadingButton>
                 </Stack>
-            </form>
-        </Box>
+
+                <RHFTextField errors={errors} control={control} name="userName" label="User name" />
+                <InputLabel id="demo-simple-select-label">Category</InputLabel>
+                <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    label="Category"
+                    onChange={handleChange}
+                >
+                    {list?.map((item) => {
+                        return <MenuItem value={item.categoryId}>{item.category}</MenuItem>;
+                    })}
+                </Select>
+
+                <RHFTextField
+                    control={control}
+                    errors={errors}
+                    name="email"
+                    label="Email address"
+                />
+
+
+                <RHFTextField
+                    control={control}
+                    errors={errors}
+                    name="password"
+                    label="Password"
+                    type={showPassword ? 'text' : 'password'}
+                    InputProps={{
+                        endAdornment: (
+                            <InputAdornment position="end">
+                                <IconButton
+                                    edge="end"
+                                    onClick={() => setShowPassword(!showPassword)}
+                                >
+                                    <Iconify
+                                        icon={showPassword ? 'eva:eye-fill' : 'eva:eye-off-fill'}
+                                    />
+                                </IconButton>
+                            </InputAdornment>
+                        ),
+                    }}
+                />
+
+                <RHFTextField control={control} errors={errors} name="phone" label="Phone number" />
+
+                <RHFTextField control={control} errors={errors} name="linkMeet" label="LinkMeet" />
+
+                <RHFTextField control={control} errors={errors} name="cover" label="Image" />
+
+                <RHFTextField control={control} errors={errors} name="dob" label="Day of birth" />
+
+                <RHFTextField control={control} errors={errors} name="address" label="Address" />
+
+                <LoadingButton
+                    fullWidth
+                    size="large"
+                    type="submit"
+                    variant="contained"
+                    loading={isSubmitting}
+                >
+                    Create
+                </LoadingButton>
+            </Stack>
+        </form>
     );
 }
